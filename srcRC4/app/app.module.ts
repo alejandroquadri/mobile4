@@ -7,6 +7,10 @@ import { MyApp } from './app.component';
 // importo AngularFire2 module
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
+// plugins
+import { Camera } from '@ionic-native/camera';
+import { File } from '@ionic-native/file';
+
 // paginas importadas
 import { DiaryPage } from '../pages/diary/diary';
 import { ChatPage } from '../pages/chat/chat';
@@ -100,6 +104,8 @@ const myFirebaseAuthConfig = {
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Camera,
+    File,
     AuthData,
     ProfileData,
     CameraService,

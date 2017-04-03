@@ -1,0 +1,59 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title> {{ mealParams.meal }} </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+	<div class="detail">
+		
+		<div class="slides" *ngIf="(meal | async).localImages">
+      <div class="addPicture">
+        <button ion-fab mini (click)="addPicture()">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </div>
+      <ion-slides pager>
+        <ion-slide *ngFor="let image of (meal | async).localImages">
+          <img [src]="image" class="slide-image"/>
+        </ion-slide>
+      </ion-slides>
+      <p> {{ (meal | async).text }} </p>
+    </div>
+
+    <div *ngIf="!(meal | async).localImages && (meal | async).text" class="newMeal">
+      <div class="addPicture">
+        <button ion-fab mini (click)="addPicture()">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </div>
+      <div class="onlyText">
+        <p> {{ (meal | async).text }} </p>
+      </div>
+    </div>
+
+    <ion-list>
+		  <ion-item *ngFor="let review of (meal | async ).reviews | objectIterate: true">
+		    <h2> {{ review.name }} </h2>
+		    <p>{{ review.message }}</p>
+		  </ion-item>
+		</ion-list>
+
+	</div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="ligther">
+    <ion-input type="text" value="" class="chatInput" [(ngModel)]="message"></ion-input>
+    <ion-buttons end>
+      <button (click)="sendReview()" ion-button color="primary">
+        <ion-icon name="send"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

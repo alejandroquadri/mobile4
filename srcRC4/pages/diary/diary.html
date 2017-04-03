@@ -1,0 +1,20 @@
+
+<ion-header>
+
+  <ion-navbar no-border-bottom>
+    <div class="nameDay">{{ day.format("dddd")}} {{ day.format("DD")}}  {{ day.format("MMMM")}}</div>
+  </ion-navbar>
+
+  <ion-toolbar no-border-bottom>
+    <week-calendar [selected]="day" (selectedDay)="setDay($event)"></week-calendar>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding>
+
+<div *ngFor="let entry of diary" >
+  <diary-entry [day]="day" [mealInput]="entry" (detail)="detail($event)" ></diary-entry>
+</div>
+
+</ion-content>

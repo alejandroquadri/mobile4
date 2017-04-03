@@ -1,0 +1,32 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Mis datos</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list>
+    <!-- use button ion-list porque si no, andaba lento el click sobre los botones -->
+    <button ion-item (click)="goToProfile()">
+      <ion-icon name="body" item-left></ion-icon>
+      <h2>Editar perfil</h2>
+    </button>
+
+    <button ion-item (click)="goToProgress()">
+      <ion-icon name="stats" item-left></ion-icon>
+      <h2>Progreso</h2>
+    </button>
+
+    <button ion-item (click)="goToCoach()">
+      <ion-icon name="happy" item-left></ion-icon>
+      <h2>Mi Coach</h2>
+    </button>
+
+  </ion-list>
+
+</ion-content>
