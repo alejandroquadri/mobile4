@@ -1,0 +1,55 @@
+diary-entry {
+
+  ion-card {
+  position: relative;
+  }
+
+  // .addPicture {
+  //   top: 57%;
+  //   right: 2%;
+  // }
+
+  .slides {
+    position: relative;
+  }
+
+  .addPicture {
+    position: absolute;
+    z-index: 999;
+    bottom: 2%;
+    right: 2%;
+  }
+
+  .newMeal {
+    height:20vh;
+    background-color: #f8f8f8;
+    position: relative;
+    text-align: center;
+  }
+
+  .camera {
+    position: absolute;
+    top: 20%;
+    font-size: 8vh;
+    width: 100%;
+    color: #fff;
+  }
+
+  .onlyText {
+    position: absolute;
+    top: 42%;
+    font-size: 8vh;
+    width: 100%;
+    color: #fff;
+    padding: 1vh;
+  }
+
+  .wrongIcon {
+    color: lightgrey
+  }
+
+  .okIcon {
+    color: "secondary";
+  }
+
+}

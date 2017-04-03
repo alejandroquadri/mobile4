@@ -1,0 +1,30 @@
+week-calendar {
+
+  div {
+    text-align: center;
+  }
+
+  .days {
+    padding: 0px;
+    margin: 0px;
+    color: black;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+  }
+
+  ion-row {
+    border-style: solid;
+    border-width: 0.5px;
+    border-radius: 5px;
+    border-color: lightgray;
+  }
+
+  .active {
+    color: #FF0000;
+  }
+
+  .today {
+    color: rgb(42, 60, 170)
+  }
+
+}
