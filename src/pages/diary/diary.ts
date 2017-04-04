@@ -29,7 +29,7 @@ export class DiaryPage {
     private sortAddPipe: SortAddPipe,
     private objectToArray: ObjectToArrayPipe
   ) {
-    this.getData();
+    this.getData()
   }
 
   ionViewDidLoad() {

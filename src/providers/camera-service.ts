@@ -1,10 +1,10 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ActionSheetController } from 'ionic-angular';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 
 // firebase
-import { AngularFire, FirebaseApp } from 'angularfire2';
+import { AngularFire } from 'angularfire2';
 import * as firebase from 'firebase';
 
 // plugins
@@ -32,13 +32,7 @@ export class CameraService {
     public authData: AuthData,
     private file: File,
     private camera: Camera,
-    @Inject(FirebaseApp) firebaseApp: any
-  ) {
-    this.storage = firebaseApp.storage()
-    console.log('storage', this.storage);
-    // let anda = firebase.storage();
-    // console.log('anda??', anda);
-  }
+  ) {}
 
   takePicture(path) {
     this.path = path;

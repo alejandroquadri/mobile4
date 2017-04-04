@@ -51,4 +51,8 @@ export class MealDetailPage {
   	);
   }
 
+  addPciture() {
+    
+  }
+
 }

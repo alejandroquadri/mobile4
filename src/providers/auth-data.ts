@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AngularFire } from 'angularfire2';
+import { AngularFire, AngularFireAuth } from 'angularfire2';
+import firebase from 'firebase';
 
 @Injectable()
 export class AuthData {
-  current: any;
-  public userProfile: any;
+
   fireAuth: any;
-  user: any
 
   constructor(
     public af: AngularFire,
@@ -19,16 +18,20 @@ export class AuthData {
     });
   }
 
-  loginUser(newEmail: string, newPassword: string): any {
+  current(): AngularFireAuth {
+    return this.af.auth
+  }
+
+  loginUser(newEmail: string, newPassword: string): firebase.Promise<any> {
     return this.af.auth.login({ email: newEmail, password: newPassword });
   }
 
   // para esto uso el JS SDK, no esta disponible todavia en AF2
-  resetPassword(email: string): any {
+  resetPassword(email: string): firebase.Promise<any> {
     return firebase.auth().sendPasswordResetEmail(email);
   }
 
-  logoutUser(): any {
+  logoutUser(): firebase.Promise<any> {
     return this.af.auth.logout()
   }
 
@@ -37,30 +40,22 @@ export class AuthData {
     .then(newUser => {
       this.af.database.object(`/userProfile/${newUser.uid}`)
       .set({email:newEmail, coach: false});
-      //.update({email:newEmail, coach: false});
-      // podria escribir lo de arriba y tambien crea la direccion
-
     })
   }
 
-  setCurrent(user){
-    return this.current = user;
-  }
+  setProfileData(displayName?: string, photoURL?: string): firebase.Promise<any>{
+    const form = {
+      displayName: this.fireAuth.displayName,
+      photoURL: this.fireAuth.photoURL
+    };
 
-  setProfileData(form: any): any {
-    console.log(form);
-    const profileForm = {};
-    if (form.displayName) { 
-      console.log('hay displayname')
-      profileForm['displayName'] = form.displayName 
-    }
-    if (form.photoURL) { 
-      console.log('hay photoURL')
-      profileForm['photoURL'] = form.photoURL 
-    }
-    console.log(profileForm);
-    this.user.updateProfile(profileForm);
-  }
+    if (displayName) { form['displayName'] = displayName }
+    if (photoURL) { form['photoURL'] = photoURL }
 
+    return firebase.auth().currentUser.updateProfile(form)
+  }
 }
+
+
+
 

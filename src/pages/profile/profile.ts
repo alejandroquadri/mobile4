@@ -4,6 +4,9 @@ import { AngularFire } from 'angularfire2';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/skip';
 
+// pages
+import { LoginPage } from '../login/login';
+
 // clases
 import { ProfileForm } from './profileForm';
 
@@ -43,6 +46,15 @@ export class ProfilePage {
 
   logOut(){
     this.authData.logoutUser()
+    .then(
+      ret => {
+        console.log('user unlogged', ret);
+        // this.navCtrl.pop()
+        this.navCtrl.setRoot(LoginPage);
+        // this.navCtrl.push(LoginPage);
+      },
+      err => console.log('error', err)
+    )
   }
 
   updateUser(){
@@ -56,20 +68,16 @@ export class ProfilePage {
     }
     console.log('form a actualizar', updateProfile);
     this.profileData.updateProfile(updateProfile);
+    if (this.profileForm.displayName) { 
+      this.authData.setProfileData(this.profileForm.displayName)
+      .then( 
+        (ret) => console.log('update exitoso', ret),
+        (err) => console.log('error', err)
+      )
+    }
   }
 
-  updateAvatar(){
-    this.camera.takePicture('profile');
-    let profileImageObs = this.camera.imageData.take(2)
-    profileImageObs.subscribe((imageData:any) => {
-      console.log('data de observable en profile', JSON.stringify(imageData));
-      this.profileData.updateProfile(imageData);
-    },
-    err => console.log('error', err),
-    () => console.log('termino profileImageObs'))
-  }
-
-  updateAvatar2() {
+  updateAvatar() {
     this.camera.takePicture('profile');
 
     let localImageObs = this.camera.imageData.take(1);
@@ -88,6 +96,11 @@ export class ProfilePage {
       (imageData:any) => {
         let form = {url: imageData}
         this.profileData.updateProfile(form);
+        this.authData.setProfileData(this.profileForm.displayName || '', imageData)
+        .then(
+          (ret) => console.log('update exitoso', ret),
+          (err) => console.log('error', err)
+        )
       },
       err => console.log('error en webImageObs second', err),
       () => console.log('termino webImageObs second')

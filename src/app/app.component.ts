@@ -5,6 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { AngularFire } from 'angularfire2';
 
+import { AuthData } from '../providers/auth-data';
+
 // paginas
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
@@ -18,16 +20,20 @@ export class MyApp {
   constructor(
     private platform: Platform,
     af: AngularFire,
+    authData: AuthData,
     statusBar: StatusBar, 
     splashScreen: SplashScreen
   ) {
     af.auth.subscribe( user => {
       if (user) {
+        console.log('va al root')
         this.rootPage = TabsPage;
       } else {
+        console.log('va al login')
         this.rootPage = LoginPage;
       }
     });
+    
     this.platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
