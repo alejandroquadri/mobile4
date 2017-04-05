@@ -28,6 +28,7 @@ import { MealDetailPage } from '../pages/meal-detail/meal-detail';
 // Components
 import { WeekCalendarComponent } from '../pages/diary/week-calendar/week-calendar';
 import { DiaryEntryComponent } from '../pages/diary/diary-entry/diary-entry';
+import { ElasticTextarea } from '../shared/components/elastic-text-area.component';
 
 // providers importados
 import { AuthData } from '../providers/auth-data';
@@ -73,6 +74,7 @@ const myFirebaseAuthConfig = {
     MealDetailPage,
     WeekCalendarComponent,
     DiaryEntryComponent,
+    ElasticTextarea,
     SortPipe,
     SortAddPipe,
     ObjectToArrayPipe,

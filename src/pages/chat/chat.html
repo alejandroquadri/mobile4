@@ -8,7 +8,40 @@
 </ion-header>
 
 
-<ion-content padding>
-  <button ion-button block (click)="upload()">Guardar</button>
-
+<ion-content padding class="chatPage">
+	<ion-list no-lines>
+	  <ion-item *ngFor="let msg of messages" >
+	    <!-- <chat-bubble [message]="msg"></chat-bubble> -->
+    	<div class="chatBubble">
+		    <img class="profile-pic {{msg.position}}" src="{{msg.img}}">
+		    <div class="chat-bubble {{msg.position}}">
+		      <div class="message">{{msg.content}}</div>
+		      <div class="message-detail">
+		          <span style="font-weight:bold;">{{msg.senderName}} </span>,
+		          <span>{{msg.time}}</span>
+		      </div>
+		    </div>
+		  </div>
+	  </ion-item>
+	</ion-list>
 </ion-content>
+
+<ion-footer class="chatPageFooter">
+
+  <ion-toolbar>
+
+    <ion-item>
+      <ion-label style="margin:0px;"></ion-label>
+      <div item-content style="width:100%;">
+        <elastic-textarea #txtChat placeholder="Type to compose" lineHeight="22"></elastic-textarea>
+      </div>
+    </ion-item>
+
+    <ion-buttons right>
+      <button style="min-width:45px;" (click)="sendMessage()">
+        <ion-icon name="send"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-footer>

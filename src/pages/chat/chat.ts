@@ -1,8 +1,11 @@
-import { Component, Inject } from '@angular/core';
+import { Component,  } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { AngularFire, FirebaseApp } from 'angularfire2';
+import { AngularFire,  } from 'angularfire2';
 
 import { AuthData } from '../../providers/auth-data';
+
+import { ElasticTextarea } from '../../shared/components/elastic-text-area.component';
+
 
 @Component({
   selector: 'page-chat',
@@ -10,39 +13,38 @@ import { AuthData } from '../../providers/auth-data';
 })
 export class ChatPage {
 
-  public storage: any;
+  messages: any;
 
   constructor(
     public navCtrl: NavController,
     public af: AngularFire,
     public authData: AuthData,
-    @Inject(FirebaseApp) firebaseApp: any
 ) {
-  this.storage = firebaseApp.storage()
-  console.log('storage', this.storage);
+    this.messages = [
+      {
+        content :  'Am I dreaming?',
+        position : 'left',
+        time : '12/3/2016',
+        senderName : 'Gregory'
+      },
+      {
+        content :  'yes!',
+        position : 'right',
+        time : '12/3/2016',
+        senderName : 'Matt'
+      },
+      {
+        content :  'How do you know?',
+        position : 'left',
+        time : '12/3/2016',
+        senderName : 'Gregory'
+      }
+    ]
 }
 
   ionViewDidLoad() {
     console.log('Hello ChatPage Page');
   }
 
-  upload(){
-    let image = "./assets/images/smiley-cyrus.jpg";
-    let blob = new Blob([image], {type: 'image/jpeg'});
-    console.log('blob', Blob);
-    let imageName = 'smiley-cyrus';
-    console.log('auth', this.authData.fireAuth.uid);
-    let storageRef = this.storage.ref()
-    console.log('storageRef', storageRef);
-    let uploadTask = storageRef.child(this.authData.fireAuth.uid + '/prueba').child(imageName).put(blob)
-    uploadTask.on('state_changed', (snapshot) => {
-        console.info(snapshot);
-    }, (error) => {
-        console.error(error);
-    }, () => {
-        let downloadURL = uploadTask.snapshot.downloadURL;
-        console.log('downloadURL', downloadURL);
-    })
-  }
 
 }
