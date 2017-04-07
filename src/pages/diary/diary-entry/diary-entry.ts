@@ -68,7 +68,7 @@ export class DiaryEntryComponent {
       webImages = [];
     }
     
-    this.camera.takePicture('diary');
+    this.camera.takePicture('diary', 30);
     let diaryImageObsFirst = this.camera.imageData.take(1);
     let diaryImageObsSecond = this.camera.imageData.take(2).skip(1);
 
@@ -89,7 +89,7 @@ export class DiaryEntryComponent {
       () => {
         console.log('termino diaryImageObs first')
       }
-    )
+    );
 
     diaryImageObsSecond.subscribe(
       (imageData:any) => {
@@ -98,7 +98,7 @@ export class DiaryEntryComponent {
       },
       err => console.log('error en diaryImageObs second', err),
       () => console.log('termino diaryImageObs second')
-    )
+    );
   }
 
   private update(prop: string, value: any, key?: string): any {

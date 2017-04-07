@@ -11,7 +11,7 @@
           <ion-icon name="add"></ion-icon>
         </button>
       </div>
-      <ion-slides pager [options]="mySlideOptions" (click)="goToDetail(mealInput)" tappable>
+      <ion-slides pager (click)="goToDetail(mealInput)" tappable>
         <ion-slide *ngFor="let image of mealInput.localImages">
           <img [src]="image" class="slide-image"/>
         </ion-slide>
@@ -41,25 +41,25 @@
 
     <div *ngIf="mealInput.text || mealInput.localImages">
       <ion-row>
-       <ion-col center text-center>
-         <span icon-left small ion-text color="secondary" class="okIcon">
-           <ion-icon name="checkmark-circle"></ion-icon>
+       <ion-col col-3 center text-center>
+         <span icon-left small ion-text>
+           <ion-icon name="checkmark-circle" class="noReview"
+           [ngClass] = "{ 'okIcon': (mealInput.rate === 'ok'? true : false) }"></ion-icon>
          </span>
-         <span icon-left small class="wrongIcon">
-           <ion-icon name="close-circle"></ion-icon>
+         <span icon-left small>
+           <ion-icon name="close-circle" class="noReview"
+           [ngClass] = "{ 'wrongIcon': (mealInput.rate === 'notok'? true : false) }"></ion-icon>
          </span>
        </ion-col>
-       <ion-col>
+       <ion-col col-9>
          <button ion-button icon-left clear small>
-           <ion-icon name="text"></ion-icon>
-           <div>2 comentarios</div>
+           <ion-icon name="text" class="noReview"></ion-icon>
+            <div>
+             <span *ngIf="mealInput.reviews"> {{ mealInput.reviews | countKeys }} comentarios</span>
+             <span *ngIf="!mealInput.reviews">no hay comentarios</span>
+            </div>
          </button>
-       </ion-col>
-       <ion-col center text-center>
-         <ion-note>
-           11h ago
-         </ion-note>
-       </ion-col>
+       </ion-col> 
      </ion-row>
     </div>
     

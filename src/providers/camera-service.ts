@@ -25,6 +25,7 @@ export class CameraService {
   public imageData = this.imageDataSubject.asObservable();
   public data = {};
   public path;
+  private quality: number;
 
   constructor(
     public asCtrl: ActionSheetController,
@@ -34,8 +35,9 @@ export class CameraService {
     private camera: Camera,
   ) {}
 
-  takePicture(path) {
+  takePicture(path, quality?: number) {
     this.path = path;
+    this.quality = quality;
     this.openActionSheet()
   }
 
@@ -84,7 +86,7 @@ export class CameraService {
   private cam(source) {
     // PHOTOLIBRARY : 0, CAMERA : 1, SAVEDPHOTOALBUM : 2
     const options: CameraOptions = {
-      quality: 50,
+      quality: this.quality  || 50,
       destinationType: this.camera.DestinationType.FILE_URI,
       sourceType: source,
       allowEdit: true,

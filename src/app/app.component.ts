@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Keyboard } from '@ionic-native/keyboard';
 
 import { AngularFire } from 'angularfire2';
 
-import { AuthData } from '../providers/auth-data';
 
 // paginas
 import { TabsPage } from '../pages/tabs/tabs';
@@ -20,9 +20,9 @@ export class MyApp {
   constructor(
     private platform: Platform,
     af: AngularFire,
-    authData: AuthData,
     statusBar: StatusBar, 
-    splashScreen: SplashScreen
+    splashScreen: SplashScreen,
+    private keyboard: Keyboard
   ) {
     af.auth.subscribe( user => {
       if (user) {
@@ -33,10 +33,18 @@ export class MyApp {
         this.rootPage = LoginPage;
       }
     });
-    
+
     this.platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
+      
+      keyboard.onKeyboardShow().subscribe(() => {
+        document.body.classList.add('keyboard-is-open');
+      });
+
+      keyboard.onKeyboardHide().subscribe(() => {
+        document.body.classList.remove('keyboard-is-open');
+      });
     })
 
   }

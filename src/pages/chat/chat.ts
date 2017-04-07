@@ -4,9 +4,6 @@ import { AngularFire,  } from 'angularfire2';
 
 import { AuthData } from '../../providers/auth-data';
 
-import { ElasticTextarea } from '../../shared/components/elastic-text-area.component';
-
-
 @Component({
   selector: 'page-chat',
   templateUrl: 'chat.html'

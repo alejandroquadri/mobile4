@@ -1,7 +1,18 @@
 page-meal-detail {
 
-	.slides .detail {
+	.detail {
     position: relative;
+  }
+
+  .slides {
+    position: relative;
+  }
+
+  .newMeal {
+    height:30vh;
+    background-color: #f8f8f8;
+    position: relative;
+    text-align: center;
   }
 
   .addPicture {
@@ -11,16 +22,9 @@ page-meal-detail {
     right: 2%;
   }
 
-  .newMeal {
-    height:40vh;
-    background-color: #f8f8f8;
-    position: relative;
-    text-align: center;
-  }
-
   .onlyText {
     position: absolute;
-    font-size: 8vh;
+    font-size: 4vh;
     width: 100%;
     color: #666;
     padding: 2vh;
@@ -32,6 +36,16 @@ page-meal-detail {
     margin-bottom: 1vh;
     border-radius: 10px;
     padding-left: 2vh;
+  }
+
+  .chatPageFooter {
+    .toolbar-background {
+      background: map-get($colors, background-color);
+    }
+  }
+
+  .input-cover {
+    position: static;
   }
 
 }

@@ -38,18 +38,21 @@ diary-entry {
   .onlyText {
     position: absolute;
     top: 42%;
-    font-size: 8vh;
     width: 100%;
     color: #fff;
     padding: 1vh;
   }
 
-  .wrongIcon {
+  .noReview {
     color: lightgrey
   }
 
   .okIcon {
-    color: "secondary";
+    color: map-get($colors, secondary);
+  }
+
+  .wrongIcon {
+    color: map-get($colors, danger);
   }
 
 }

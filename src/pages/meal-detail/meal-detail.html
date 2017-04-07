@@ -11,7 +11,7 @@
 
 	<div class="detail">
 		
-		<div class="slides" *ngIf="(meal | async).localImages">
+		<div  *ngIf="(meal | async).localImages" class="slides">
       <div class="addPicture">
         <button ion-fab mini (click)="addPicture()">
           <ion-icon name="add"></ion-icon>
@@ -22,7 +22,6 @@
           <img [src]="image" class="slide-image"/>
         </ion-slide>
       </ion-slides>
-      <p> {{ (meal | async).text }} </p>
     </div>
 
     <div *ngIf="!(meal | async).localImages && (meal | async).text" class="newMeal">
@@ -31,15 +30,32 @@
           <ion-icon name="add"></ion-icon>
         </button>
       </div>
-      <div class="onlyText">
-        <p> {{ (meal | async).text }} </p>
+      <div center class="onlyText">
+        <ion-row>
+          <ion-col center>
+            <p> {{ (meal | async).text }} </p>
+          </ion-col>
+        </ion-row>
       </div>
+    </div>
+
+    <div class="text">
+      <ion-row>
+        <ion-col col-2 center text-center>
+          <button ion-button icon-center clear small (click)="editText()">
+             <span icon-center ion-text style="font-size: 3vh;"><ion-icon name="create"></ion-icon></span>
+          </button>
+        </ion-col>
+        <ion-col col-10 center>
+          <ion-note *ngIf="(meal | async).localImages && (meal | async).text">{{ (meal | async).text }}</ion-note>
+        </ion-col>
+      </ion-row>
     </div>
 
     <ion-list>
 		  <ion-item *ngFor="let review of (meal | async ).reviews | objectIterate: true">
-		    <h2> {{ review.name }} </h2>
-		    <p>{{ review.message }}</p>
+		    <p><strong>{{ review.name }}</strong> {{ review.message }}</p>
+        <p><small>{{ review.timestamp | momentFromNow}}</small></p>
 		  </ion-item>
 		</ion-list>
 
@@ -47,13 +63,15 @@
 
 </ion-content>
 
-<ion-footer>
-  <ion-toolbar color="ligther">
-    <ion-input type="text" value="" class="chatInput" [(ngModel)]="message"></ion-input>
-    <ion-buttons end>
+ <ion-footer>
+
+  <ion-toolbar color="ligther"> 
+    <elastic-textarea #txtChat lineHeight="22" tappable></elastic-textarea>
+    <ion-buttons right>
       <button (click)="sendReview()" ion-button color="primary">
         <ion-icon name="send"></ion-icon>
       </button>
     </ion-buttons>
   </ion-toolbar>
+
 </ion-footer>

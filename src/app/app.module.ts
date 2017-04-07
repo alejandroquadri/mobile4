@@ -10,6 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
+import { Keyboard } from '@ionic-native/keyboard';
 
 // paginas importadas
 import { DiaryPage } from '../pages/diary/diary';
@@ -41,6 +42,10 @@ import { SortPipe } from '../shared/pipes/sort.pipe';
 import { SortAddPipe } from '../shared/pipes/sort-add.pipe';
 import { ObjectToArrayPipe } from '../shared/pipes/object-to-array.pipe';
 import { ObjectIteratePipe } from '../shared/pipes/object-iterate.pipe';
+import { MomentDatePipe } from '../shared/pipes/moment-date.pipe';
+import { MomentFromNowPipe } from '../shared/pipes/moment-from-now.pipe';
+import { CountKeysPipe } from '../shared/pipes/count-keys.pipe';
+
 
 // settings AF2
 export const firebaseConfig = {
@@ -79,6 +84,9 @@ const myFirebaseAuthConfig = {
     SortAddPipe,
     ObjectToArrayPipe,
     ObjectIteratePipe,
+    MomentDatePipe,
+    MomentFromNowPipe,
+    CountKeysPipe
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -110,6 +118,7 @@ const myFirebaseAuthConfig = {
     SplashScreen,
     Camera,
     File,
+    Keyboard,
     AuthData,
     ProfileData,
     CameraService,
@@ -117,7 +126,10 @@ const myFirebaseAuthConfig = {
     SortPipe,
     SortAddPipe,
     ObjectToArrayPipe,
-    ObjectIteratePipe
+    ObjectIteratePipe,
+    MomentDatePipe,
+    MomentFromNowPipe,
+    CountKeysPipe
   ]
 })
 export class AppModule {}

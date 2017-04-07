@@ -5,16 +5,29 @@ import {Component, ViewChild} from '@angular/core';
   inputs: ['placeholder', 'lineHeight'],
   template:
   `
-  <ion-textarea #ionTxtArea
+  <ion-textarea class="textArea" #ionTxtArea
     placeholder='{{placeholder}}'
     [(ngModel)]="content"
     (ngModelChange)='onChange($event)'>
   </ion-textarea>
   `,
-  // queries: {
-  //   ionTxtArea: new ViewChild('ionTxtArea')
-  // }
+  styles: [`
+    .textArea {
+      background-color: white;
+      border-radius: 10px;
+    }
+    
+    textarea {
+      height: 22px;
+      padding-left: 1vh;
+      padding-top: 0.5vh;
+      margin-top: 1vh;
+      margin-bottom: 1vh;
+      margin-left: 8px;
+    }
+  `]
 })
+
 export class ElasticTextarea {
 
   content;
@@ -29,7 +42,6 @@ export class ElasticTextarea {
 
   ngAfterViewInit(){
     this.txtArea = this.ionTxtArea._elementRef.nativeElement.children[0];
-    // this.txtArea = this.ionTxtArea.nativeElement.children[0];
     this.txtArea.style.height = this.lineHeight + "px";
   }
 
