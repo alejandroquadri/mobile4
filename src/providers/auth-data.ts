@@ -39,7 +39,7 @@ export class AuthData {
     return this.af.auth.createUser({ email: newEmail, password: newPassword })
     .then(newUser => {
       this.af.database.object(`/userProfile/${newUser.uid}`)
-      .set({email:newEmail, coach: false});
+      .set({email:newEmail});
     })
   }
 

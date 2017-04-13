@@ -8,42 +8,29 @@
 </ion-header>
 
 
-<ion-content padding class="chatPage">
-	<ion-list no-lines>
-	  <ion-item *ngFor="let msg of messages" >
-	    <!-- <chat-bubble [message]="msg"></chat-bubble> -->
-    	<div class="chatBubble">
-		    <img class="profile-pic {{msg.position}}" src="{{msg.img}}">
-		    <div class="chat-bubble {{msg.position}}">
-		      <div class="message">{{msg.content}}</div>
-		      <div class="message-detail">
-		          <span style="font-weight:bold;">{{msg.senderName}} </span>,
-		          <span>{{msg.time}}</span>
-		      </div>
-		    </div>
-		  </div>
-	  </ion-item>
-	</ion-list>
+<ion-content padding class="chatPage" #chatUi>
+
+  <ion-list no-lines>
+    <ion-item *ngFor="let msg of chat | async" >
+      <div class="chatBubble">
+        <img class="profile-pic {{ msg.uid === profileObject.$key? 'left':'right' }}" 
+        [src]="msg.uid === profileObject.$key? profileObject.url: coachProfile.avatar "
+        >
+        <!-- [src]="profileObject.url" -->
+        <div class="chat-bubble {{ msg.uid === profileObject.$key? 'left':'right' }}">
+          <div class="message">{{ msg.content }}</div>
+          <div class="message-detail">
+              <span style="font-weight:bold;">{{ msg.uid === profileObject.$key? profileObject.displayName: coachProfile.displayName }} </span>,
+              <span>{{ msg.timestamp | momentFromNow }}</span>
+          </div>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
 
 <ion-footer class="chatPageFooter">
-
-  <!-- <ion-toolbar>
-
-    <ion-item>
-      <ion-label style="margin:0px;"></ion-label>
-      <div item-content style="width:100%;" tappable>
-        <elastic-textarea #txtChat lineHeight="22" tappable></elastic-textarea>
-      </div>
-    </ion-item>
-
-    <ion-buttons right>
-      <button style="min-width:45px;" (click)="sendMessage()">
-        <ion-icon name="send"></ion-icon>
-      </button>
-    </ion-buttons>
-
-  </ion-toolbar> -->
 
   <ion-toolbar color="ligther"> 
     <elastic-textarea #txtChat lineHeight="22" tappable></elastic-textarea>

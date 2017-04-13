@@ -153,7 +153,7 @@ export class CameraService {
     let uploadTask = storageRef.child(`${this.authData.fireAuth.uid}/images/${this.path}`).child(imageName).put(image)
 
     uploadTask.on('state_changed', (snapshot) => {
-        console.info(snapshot);
+        console.log(snapshot);
     }, (error) => {
         console.error(error);
     }, () => {

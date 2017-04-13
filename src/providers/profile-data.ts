@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFire } from 'angularfire2';
+import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 
 import { AuthData } from './auth-data';
@@ -15,6 +15,8 @@ export class ProfileData {
     public authData: AuthData
   ) {
     this.setProfile();
+    this.profileObs.subscribe(data => {
+      this.current = data});
   }
 
   updateProfile(form){
@@ -24,6 +26,10 @@ export class ProfileData {
 
   setProfile(){
     this.profileObs = this.af.database.object(`/userProfile/${this.authData.fireAuth.uid}`);
+  }
+
+  coachProfile(coachuid): FirebaseObjectObservable<any> {
+    return this.af.database.object(`coachProfile/${coachuid}`);
   }
 
 }
