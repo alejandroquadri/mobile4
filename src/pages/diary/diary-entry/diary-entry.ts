@@ -103,6 +103,7 @@ export class DiaryEntryComponent {
 
   private update(prop: string, value: any, key?: string): any {
     let form = {
+      state: 'pending',
       order: this.mealInput.order, 
       meal: this.mealInput.meal
     };

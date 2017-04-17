@@ -77,7 +77,7 @@ export class MealDetailPage {
     diaryImageObsSecond.subscribe(
       (imageData:any) => {
         webImages.push(imageData);
-        this.diaryData.updateList({webImages: webImages}, this.mealParams.$key,this.mealParams.date)
+        this.diaryData.updateList({webImages: webImages, state: 'pending'}, this.mealParams.$key,this.mealParams.date)
         .then( 
           ret => console.log('web image saved', ret),
           err => console.log('error', err)
@@ -102,7 +102,7 @@ export class MealDetailPage {
         { text: 'Cancelar'},
         { text: 'Guardar',
           handler: data => {
-            this.diaryData.updateList({text: data.meal},this.mealParams.$key,this.mealParams.date)
+            this.diaryData.updateList({text: data.meal, state: 'pending'},this.mealParams.$key,this.mealParams.date)
             .then(
               () => console.log('updated'),
               (err) => console.log('error', err)
@@ -126,6 +126,7 @@ export class MealDetailPage {
   		ret => {
   		console.log('enviado', ret);
   		this.txtChat.content = '';
+      this.diaryData.updateList({state: 'pending'},this.mealParams.$key,this.mealParams.date);
 	  	},
 	  	err => console.log('error al enviar mensaje', err)
   	);

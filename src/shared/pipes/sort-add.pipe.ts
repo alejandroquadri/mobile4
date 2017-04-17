@@ -38,12 +38,12 @@ export class SortAddPipe implements PipeTransform {
   }
 
   addMeal(array) {
-  	if (!this.findMeal(array, 'desayuno')) {array.push({meal:'desayuno', order:0})}
-		if (!this.findMeal(array, 'colacion mañana')) { array.push({meal:'colacion mañana', order:1})}
-  	if (!this.findMeal(array, 'almuerzo')) { array.push({meal:'almuerzo', order:2})}
-		if (!this.findMeal(array, 'colacion tarde')) { array.push({meal:'colacion tarde', order:3})}
-		if (!this.findMeal(array, 'te')) { array.push({meal:'te', order:4})}
-		if (!this.findMeal(array, 'cena')) { array.push({meal:'cena', order:5})}
+  	if (!this.findMeal(array, 'desayuno')) {array.push({meal:'desayuno', order:0, state: 'pending'})}
+		if (!this.findMeal(array, 'colacion mañana')) { array.push({meal:'colacion mañana', order:1, state: 'pending'})}
+  	if (!this.findMeal(array, 'almuerzo')) { array.push({meal:'almuerzo', order:2, state: 'pending'})}
+		if (!this.findMeal(array, 'colacion tarde')) { array.push({meal:'colacion tarde', order:3, state: 'pending'})}
+		if (!this.findMeal(array, 'te')) { array.push({meal:'te', order:4, state: 'pending'})}
+		if (!this.findMeal(array, 'cena')) { array.push({meal:'cena', order:5, state: 'pending'})}
 		return array
   }
 

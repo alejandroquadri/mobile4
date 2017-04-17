@@ -45,6 +45,12 @@ export class ChatService {
     });
   }
 
+  getChatFireSDK(chatUid: string) {
+    console.log(chatUid);
+    firebase.database().ref(`/chats/${chatUid}`)
+    .on('value', data => console.log(data.val()));
+  }
+
   offCheckRead() {
     if (this.chat) {
       console.log('check msj read off');

@@ -38,6 +38,7 @@ export class ChatPage implements AfterViewChecked {
       this.chatUid = `${this.profileObject.coach}&${this.authData.fireAuth.uid}`;
       this.chat = this.chatService.getChat(this.chatUid);
       this.chatService.mesRead(this.chatUid, this.profileObject.$key);
+      this.chatService.getChatFireSDK(this.chatUid);
     })
 }
   

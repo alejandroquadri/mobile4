@@ -6,11 +6,11 @@
     </ion-card-header>
 
     <div class="slides" *ngIf="mealInput.localImages">
-      <div class="addPicture">
+      <!-- <div class="addPicture">
         <button ion-fab mini (click)="addPicture()">
           <ion-icon name="add"></ion-icon>
         </button>
-      </div>
+      </div> -->
       <ion-slides pager (click)="goToDetail(mealInput)" tappable>
         <ion-slide *ngFor="let image of mealInput.localImages">
           <img [src]="image" class="slide-image"/>
@@ -19,11 +19,11 @@
     </div>
 
     <div *ngIf="!mealInput.localImages && mealInput.text" class="newMeal">
-      <div class="addPicture">
+      <!-- <div class="addPicture">
         <button ion-fab mini (click)="addPicture()">
           <ion-icon name="add"></ion-icon>
         </button>
-      </div>
+      </div> -->
       <div class="onlyText" (click)="goToDetail(mealInput)" tappable>
         <p> {{ mealInput.text }} </p>
       </div>
