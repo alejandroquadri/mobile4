@@ -8,7 +8,6 @@ import { Injectable, Pipe, PipeTransform } from '@angular/core';
 export class SortAddPipe implements PipeTransform {
 	transform(array: Array<any>, field: string, asc: boolean): Array<any> {
 		if (array) {
-			// console.log(array)
 			let arrayAdded = this.addMeal(array);
 			
 			if (asc){
