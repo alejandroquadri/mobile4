@@ -65,10 +65,14 @@ export class LoginPage {
       this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password)
       .then( authData => {
         console.log('va a root');
-        this.navCtrl.setRoot(TabsPage);
+        // this.loading.dismiss().catch(() => {})
+        // this.navCtrl.setRoot(TabsPage);
+        // lo de arriba lo saco porque la observable del appcomponent ya lo esta direccionando y poniendo
+        // el root en tabs cuando el usuario de loguea
       }, error => {
         console.log('hubo un error');
-        this.loading.dismiss().then( () => {
+        this.loading.dismiss()
+        .then(() => {
           let alert = this.alertCtrl.create({
             message: error.message,
             buttons: [
@@ -79,7 +83,8 @@ export class LoginPage {
             ]
           });
           alert.present();
-        });
+        })
+        .catch(() => {})
       });
 
       this.loading = this.loadingCtrl.create({

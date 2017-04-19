@@ -1,8 +1,19 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Mi progreso</ion-title>
-  </ion-navbar>
+	<ion-navbar>
+			
+		<ion-title>
+	    <ion-title>Mi progreso</ion-title>
+	  </ion-title>
+
+	  <ion-buttons end>
+      <button ion-button small outline icon-left color="royal" (click)="logWeight()">
+        <ion-icon name="add"></ion-icon>
+        Registro
+      </button>
+    </ion-buttons>
+
+	</ion-navbar>
 
 </ion-header>
 
@@ -10,8 +21,8 @@
 <ion-content padding>
 
 <div class="pesoActual">
-	<h3>Peso actual</h3>
-	<div text-center class="numero">94 kg</div>
+	<p text-center>peso actual</p>
+	<div text-center class="numero">{{actual}} kg</div>
 </div>
 
 <ion-list>
@@ -19,28 +30,28 @@
 	<ion-item>
 	  <ion-row>
 	    <ion-col col-6 center><h2>Peso desafío</h2></ion-col>
-	    <ion-col col-6><h1 text-right>93 kg</h1></ion-col>
+	    <ion-col col-6><h1 text-right>{{ profile?.challengeWeight }} kg</h1></ion-col>
 	  </ion-row>
   </ion-item>
 
   <ion-item>
 	  <ion-row>
 	    <ion-col col-6 center><h2>Peso objetivo</h2></ion-col>
-	    <ion-col col-6><h1 text-right>90 kg</h1></ion-col>
+	    <ion-col col-6><h1 text-right>{{ profile?.objectiveWeight }} kg</h1></ion-col>
 	  </ion-row>
   </ion-item>
 
   <ion-item>
 	  <ion-row>
 	    <ion-col col-6 center><h2>Peso inicial</h2></ion-col>
-	    <ion-col col-6><h1 text-right>98 kg</h1></ion-col>
+	    <ion-col col-6><h1 text-right>{{ profile?.initialWeight }} kg</h1></ion-col>
 	  </ion-row>
   </ion-item>
 
   <ion-item>
 	  <ion-row>
 	    <ion-col col-6 center><h2>Peso perdido</h2></ion-col>
-	    <ion-col col-6><h1 text-right>4 kg</h1></ion-col>
+	    <ion-col col-6><h1 text-right>{{ profile?.initialWeight - actual }} kg</h1></ion-col>
 	  </ion-row>
   </ion-item>
 
