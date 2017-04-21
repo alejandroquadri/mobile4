@@ -10,4 +10,16 @@
 
 <ion-content padding>
 
+	<div padding>
+    <img [src]="coachProf?.avatar || avatar">
+  </div>
+
+  <h2>{{coachProf?.firstName}} {{coachProf?.lastName}}</h2>
+  <h5>{{coachProf?.displayName}}</h5>
+
+  <p>{{coachProf?.bio}}</p>
+
+  <p>{{coachProf?.interests}}</p>
+  
+
 </ion-content>

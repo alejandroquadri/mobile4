@@ -8,7 +8,7 @@ import 'rxjs/add/operator/skip';
 import { LoginPage } from '../login/login';
 
 // clases
-import { ProfileForm } from './profileForm';
+import { Profile } from './profile.model';
 
 // servicios
 import { AuthData } from '../../providers/auth-data';
@@ -22,7 +22,7 @@ import { CameraService } from '../../providers/camera-service';
 export class ProfilePage {
 
   avatar: string = "./assets/images/smiley-cyrus.jpg";
-  profileForm: ProfileForm;
+  profileForm: Profile;
 
   constructor(
     public navCtrl: NavController,
@@ -32,7 +32,7 @@ export class ProfilePage {
     public af: AngularFire,
     public loadingCtrl: LoadingController
   ) {
-    this.profileForm = new ProfileForm;
+    this.profileForm = new Profile;
   }
 
   ionViewDidLoad() {

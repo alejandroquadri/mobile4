@@ -1,22 +1,26 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-/*
-  Generated class for the Coach page.
+import { ProfileData } from '../../providers/profile-data'
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-coach',
   templateUrl: 'coach.html'
 })
 export class CoachPage {
 
-  constructor(public navCtrl: NavController) {}
+	coachProf: any;
+	avatar: string = "./assets/images/smiley-cyrus.jpg";
+
+  constructor(
+  	public navCtrl: NavController,
+  	public profileData: ProfileData
+  ) {}
 
   ionViewDidLoad() {
-    console.log('Hello CoachPage Page');
+    this.profileData.getProfileOnce()
+    .then( prof => this.profileData.getCoachProfileOnce(prof.val().coach))
+    .then( coachProf => this.coachProf = coachProf.val())
   }
 
 }

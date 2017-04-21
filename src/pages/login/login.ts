@@ -7,12 +7,11 @@ import { NavController, LoadingController, AlertController } from 'ionic-angular
 import { AuthData } from '../../providers/auth-data';
 
 // paginas
-import { TabsPage } from '../tabs/tabs';
 import { SignupPage } from '../signup/signup';
 import { ResetPasswordPage } from '../reset-password/reset-password';
 
 //validators
-import { EmailValidator } from '../../validators/email';
+import { EmailValidator } from '../../shared/validators/email.validator';
 
 @Component({
   selector: 'page-login',
