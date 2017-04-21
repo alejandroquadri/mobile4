@@ -37,4 +37,8 @@ export class ProfileData {
     return firebase.database().ref(`/userProfile/${firebase.auth().currentUser.uid}`).once('value');
   }
 
+  getCoachProfileOnce(coachuid): firebase.Promise<any> {
+    return firebase.database().ref(`coachProfile/${coachuid}`).once('value');
+  }
+
 }
