@@ -40,8 +40,8 @@
     </ion-card-content>
 
     <div *ngIf="mealInput.text || mealInput.localImages">
-      <ion-row>
-       <ion-col col-3 center text-center>
+      <ion-row align-items-center>
+       <ion-col col-3 align-self-center text-center>
          <span icon-left small ion-text>
            <ion-icon name="checkmark-circle" class="noReview"
            [ngClass] = "{ 'okIcon': (mealInput.rate === 'ok'? true : false) }"></ion-icon>
@@ -51,7 +51,7 @@
            [ngClass] = "{ 'wrongIcon': (mealInput.rate === 'notok'? true : false) }"></ion-icon>
          </span>
        </ion-col>
-       <ion-col col-9>
+       <ion-col col-9 align-self-center>
          <button ion-button icon-left clear small>
            <ion-icon name="text" class="noReview"></ion-icon>
             <div>

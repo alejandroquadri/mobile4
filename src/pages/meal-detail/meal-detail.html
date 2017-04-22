@@ -40,13 +40,13 @@
     </div>
 
     <div class="text">
-      <ion-row>
-        <ion-col col-2 center text-center>
+      <ion-row align-items-center>
+        <ion-col col-2 text-center>
           <button ion-button icon-center clear small (click)="editText()">
              <span icon-center ion-text style="font-size: 3vh;"><ion-icon name="create"></ion-icon></span>
           </button>
         </ion-col>
-        <ion-col col-10 center>
+        <ion-col col-10>
           <ion-note *ngIf="(meal | async).localImages && (meal | async).text">{{ (meal | async).text }}</ion-note>
         </ion-col>
       </ion-row>
