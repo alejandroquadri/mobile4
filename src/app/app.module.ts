@@ -1,4 +1,6 @@
 import { NgModule, ErrorHandler  } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
@@ -91,6 +93,8 @@ const myFirebaseAuthConfig = {
     CountKeysPipe
   ],
   imports: [
+    BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp, {
       pageTransition: 'md-transition'
     }), // esto es para que junto tappable no tarde unos segundos en hacer click
