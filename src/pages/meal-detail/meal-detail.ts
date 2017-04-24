@@ -32,9 +32,7 @@ export class MealDetailPage {
     console.log(this.mealParams);
     this.meal = this.diaryData.getMeal(this.mealParams.date, this.mealParams.$key);
     this.meal.subscribe( data => this.mealData = data);
-    this.profileData.profileObs.subscribe( profile => {
-    	this.profile = profile;
-    })
+  	this.profile = this.profileData.current;
 	}
 
   ionViewDidLoad() {

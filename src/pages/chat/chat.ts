@@ -28,7 +28,7 @@ export class ChatPage /*implements AfterViewChecked*/ {
 ) {}
 
   ionViewDidLoad() {
-    this.profileObject = this.profileData.getCurrent();
+    this.profileObject = this.profileData.current;
     this.profileData.getCoachProfileOnce()
     .then( coach => {
       this.coachProfile = coach.val()
@@ -37,6 +37,7 @@ export class ChatPage /*implements AfterViewChecked*/ {
   }
 
   ionViewDidEnter(){
+    this.profileObject = this.profileData.current;
     setTimeout(this.scrollToBottom(), 500);
     this.chatService.mesRead();
   }

@@ -41,8 +41,6 @@ export class ProgressPage {
       this.prepareChartData(this.weightLogsArray);
       this.buildGraph(this.data, this.labels);
     })
-    // this.profileData.getProfileOnce()
-    // .then( prof => this.profile = prof.val() )
     this.profile = this.profileData.current;
   }
 

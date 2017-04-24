@@ -7,7 +7,7 @@ import { AuthData } from './auth-data';
 @Injectable()
 export class ProfileData {
 
-  profileObs: FirebaseObjectObservable<any>;
+  // profileObs: FirebaseObjectObservable<any>;
   current: any;
 
   constructor(
@@ -45,10 +45,6 @@ export class ProfileData {
 
   getCurrent() {
     return this.current;
-  }
-
-  getCoachProfileOnce2(coachuid): firebase.Promise<any> {
-    return firebase.database().ref(`coachProfile/${coachuid}`).once('value');
   }
 
   getCoachProfileOnce() {

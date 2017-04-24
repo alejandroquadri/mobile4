@@ -32,14 +32,15 @@ export class TabsPage {
   }
 
   countUnread() {
-  	this.profile = this.profileData.getCurrent();
-		this.chats = this.chatService.getChat(this.profile.$key.coach, this.profile.$key)
+  	this.profile = this.profileData.current;
+		this.chats = this.chatService.getChat(this.profile.coach, this.profile.$key)
 		.subscribe( chat => {
   		this.unread = 0;
     	chat.forEach( msg => {
     		if (this.profile.$key !== msg.uid) {
     			if (!msg.read) {
     				this.unread += 1;
+            console.log(this.unread);
     			}
     		}
     	});
