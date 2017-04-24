@@ -6,6 +6,9 @@ import { Keyboard } from '@ionic-native/keyboard';
 
 import { AngularFire } from 'angularfire2';
 
+import { AuthData } from '../providers/auth-data';
+import { ProfileData } from '../providers/profile-data';
+
 
 // paginas
 import { TabsPage } from '../pages/tabs/tabs';
@@ -18,21 +21,26 @@ export class MyApp {
   rootPage: any;
 
   constructor(
-    private platform: Platform,
-    af: AngularFire,
-    statusBar: StatusBar, 
-    splashScreen: SplashScreen,
-    private keyboard: Keyboard
+    public platform: Platform,
+    public af: AngularFire,
+    public statusBar: StatusBar, 
+    public splashScreen: SplashScreen,
+    public keyboard: Keyboard,
+    public authData: AuthData,
+    public profileData: ProfileData
   ) {
-    af.auth.subscribe( user => {
+    this.authData.current().subscribe( user => {
       if (user) {
-        console.log('va al root')
-        this.rootPage = TabsPage;
+        this.profileData.getProfile()
+        .subscribe( profile => {
+          if (profile) {
+            this.rootPage = TabsPage;
+          }
+        })
       } else {
-        console.log('va al login')
         this.rootPage = LoginPage;
       }
-    });
+    })
 
     this.platform.ready().then(() => {
       statusBar.styleDefault();

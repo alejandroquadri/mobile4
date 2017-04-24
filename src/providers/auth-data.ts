@@ -6,16 +6,20 @@ import firebase from 'firebase';
 export class AuthData {
 
   fireAuth: any;
+  authObs: any;
 
   constructor(
     public af: AngularFire,
   ) {
-    af.auth.subscribe( user => {
-      if (user) {
-        this.fireAuth = user.auth;
-        console.log(user);
-      }
-    });
+    // af.auth.subscribe( user => {
+    //   if (user) {
+    //     this.fireAuth = user.auth;
+    //   }
+    // });
+    this.authObs = this.current()
+    .subscribe( user => {
+      if (user) { this.fireAuth = user.auth}
+    })
   }
 
   current(): AngularFireAuth {

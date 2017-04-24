@@ -1,23 +1,29 @@
 import { Injectable } from '@angular/core';
 import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 import * as firebase from 'firebase';
-import { Observable } from 'rxjs/Observable';
 
 import { AuthData } from './auth-data';
 
 @Injectable()
 export class ProfileData {
 
-  public profileObs: Observable<any>;
-  current;
+  profileObs: FirebaseObjectObservable<any>;
+  current: any;
 
   constructor(
     public af: AngularFire,
     public authData: AuthData
   ) {
-    this.setProfile();
-    this.profileObs.subscribe(data => {
-      this.current = data});
+    this.authData.current().subscribe( user => {
+      if(user) {
+        this.af.database.object(`/userProfile/${user.uid}`)
+        .subscribe( prof => {
+          this.current = prof;
+        })
+      } else {
+        this.current = null;
+      }
+    })
   }
 
   updateProfile(form){
@@ -25,8 +31,8 @@ export class ProfileData {
     .update(form)
   }
 
-  setProfile(){
-    this.profileObs = this.af.database.object(`/userProfile/${this.authData.fireAuth.uid}`);
+  getProfile(){
+    return this.af.database.object(`/userProfile/${this.authData.fireAuth.uid}`)
   }
 
   coachProfile(coachuid): FirebaseObjectObservable<any> {
@@ -37,8 +43,16 @@ export class ProfileData {
     return firebase.database().ref(`/userProfile/${firebase.auth().currentUser.uid}`).once('value');
   }
 
-  getCoachProfileOnce(coachuid): firebase.Promise<any> {
+  getCurrent() {
+    return this.current;
+  }
+
+  getCoachProfileOnce2(coachuid): firebase.Promise<any> {
     return firebase.database().ref(`coachProfile/${coachuid}`).once('value');
+  }
+
+  getCoachProfileOnce() {
+    return firebase.database().ref(`coachProfile/${this.current.coach}`).once('value');
   }
 
 }

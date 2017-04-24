@@ -1,9 +1,8 @@
-import { Component, ViewChild, AfterViewChecked } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AngularFire,  } from 'angularfire2';
 import * as moment from 'moment';
 
-import { AuthData } from '../../providers/auth-data';
 import { ProfileData } from '../../providers/profile-data';
 import { ChatService } from '../../providers/chat-service';
 
@@ -11,45 +10,35 @@ import { ChatService } from '../../providers/chat-service';
   selector: 'page-chat',
   templateUrl: 'chat.html'
 })
-export class ChatPage implements AfterViewChecked {
+export class ChatPage /*implements AfterViewChecked*/ {
 
   messages: any;
   profile: any;
   profileObject: any
   coachProfile: any;
   chat: any;
-  chatUid: string;
   @ViewChild('txtChat') txtChat;
   @ViewChild('chatUi') chatUi;
 
   constructor(
     public navCtrl: NavController,
     public af: AngularFire,
-    public authData: AuthData,
     public profileData: ProfileData,
     public chatService: ChatService
-) {
-    this.profile = this.profileData.profileObs
-    this.profile.subscribe( profile => {
-      this.profileObject = profile;
-      this.profileData.coachProfile(profile.coach).subscribe(coach => {
-        this.coachProfile = coach;
-      })
-      this.chatUid = `${this.profileObject.coach}&${this.authData.fireAuth.uid}`;
-      this.chat = this.chatService.getChat(this.chatUid);
-      this.chatService.mesRead(this.chatUid, this.profileObject.$key);
-      this.chatService.getChatFireSDK(this.chatUid);
+) {}
+
+  ionViewDidLoad() {
+    this.profileObject = this.profileData.getCurrent();
+    this.profileData.getCoachProfileOnce()
+    .then( coach => {
+      this.coachProfile = coach.val()
     })
-}
-  
-  ngAfterViewChecked() {
-    this.scrollToBottom();
+    this.chat = this.chatService.getChat(this.profileObject.coach , this.profileObject.$key)
   }
 
   ionViewDidEnter(){
-    this.chatUid = `${this.profileObject.coach}&${this.authData.fireAuth.uid}`;
-    this.chat = this.chatService.getChat(this.chatUid);
-    this.chatService.mesRead(this.chatUid, this.profileObject.$key);
+    setTimeout(this.scrollToBottom(), 500);
+    this.chatService.mesRead();
   }
 
   ionViewDidLeave() {
@@ -57,6 +46,7 @@ export class ChatPage implements AfterViewChecked {
   }
 
   scrollToBottom(): void {
+    console.log('to bottom');
     this.chatUi.scrollToBottom(300);
   }  
 
@@ -69,11 +59,12 @@ export class ChatPage implements AfterViewChecked {
         displayName: this.profileObject.displayName,
         timestamp: moment().format(),
       }
-      this.chatService.pushMsg(this.chatUid, form)
+      this.chatService.pushMsg(this.profileObject.coach, this.profileObject.$key, form)
       .then (
         (ret) => {
-          console.log('msg sent', ret); 
+          console.log('msg sent'); 
           this.txtChat.content = '';
+          this.scrollToBottom();
         },
         (err) => console.log('error', err)
       );

@@ -18,8 +18,7 @@ export class CoachPage {
   ) {}
 
   ionViewDidLoad() {
-    this.profileData.getProfileOnce()
-    .then( prof => this.profileData.getCoachProfileOnce(prof.val().coach))
+    this.profileData.getCoachProfileOnce()
     .then( coachProf => this.coachProf = coachProf.val())
   }
 

@@ -11,16 +11,18 @@
 <ion-content padding class="chatPage" #chatUi>
 
   <ion-list no-lines>
+<!--   <ion-list no-lines *ngIf="chat">
+    <ion-item *ngFor="let msg of chat" > -->
     <ion-item *ngFor="let msg of chat | async" >
       <div class="chatBubble">
         <img class="profile-pic {{ msg.uid === profileObject.$key? 'left':'right' }}" 
-        [src]="msg.uid === profileObject.$key? profileObject.url: coachProfile.avatar "
+        [src]="msg.uid === profileObject.$key? profileObject.url: coachProfile?.avatar "
         >
         <!-- [src]="profileObject.url" -->
         <div class="chat-bubble {{ msg.uid === profileObject.$key? 'left':'right' }}">
           <div class="message">{{ msg.content }}</div>
           <div class="message-detail">
-              <span style="font-weight:bold;">{{ msg.uid === profileObject.$key? profileObject.displayName: coachProfile.displayName }} </span>,
+              <span style="font-weight:bold;">{{ msg.uid === profileObject.$key? profileObject?.displayName: coachProfile?.displayName }} </span>,
               <span>{{ msg.timestamp | momentFromNow }}</span>
           </div>
         </div>
