@@ -40,6 +40,7 @@ export class DiaryPage {
     .subscribe(data => {
       this.completeDiary = data;
       this.diary = this.dateDiary()
+      this.commentedDates();
     })
   }
 
@@ -59,6 +60,31 @@ export class DiaryPage {
     let primero  = this.objectToArray.transform(dayDiary);
     let segundo = this.sortAddPipe.transform(primero, 'order', true);
     return segundo;
+  }
+
+  private commentedDates() {
+    let commented = [];
+
+    const days = this.objectToArray.transform(this.completeDiary);
+    days.forEach( item => {
+      // console.log(item);
+      const day = this.objectToArray.transform(item);
+      // console.log(day);
+      day.forEach( meal => {
+        if ( meal[0] === '$') { return; }
+        console.log(meal, meal.rate, meal. reviews);
+        if (meal.rate || meal.reviews) {
+          console.log('pasa el primero');
+          if (commented.indexOf(item.$key) === -1) {
+            console.log('pasa el ultimo', item.$key);
+            commented.push(item.$key);
+          } else { return; }
+        }
+      })
+    })
+    console.log(commented);
+    return commented;
+    
   }
 
 

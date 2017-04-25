@@ -16,6 +16,7 @@ export class ObjectToArrayPipe implements PipeTransform {
     keyArr.forEach((key: any) => {
     	// en esta linea conservo el id de firebase para poder
     	// modificarlo o borrarlo despues
+      if ( key[0] === '$') { return; }
     	value[key]['$key'] = key;
       dataArr.push(value[key]);
     });

@@ -1,14 +1,8 @@
 <ion-grid>
   <ion-row align-items-center>
-    <!-- <ion-col align-items-center ion-button clear small class="days" (click)="previous()"> -->
     <ion-col class="days" (click)="previous()" tappable>
       <ion-icon name="arrow-back"></ion-icon>
     </ion-col>
-    <!-- <ion-col text-center ion-button clear small class="days" *ngFor="let day of weekDays"
-      (click)="select(day)"
-      [class.today]="day.isToday"
-      [class.active]="day.date.isSame(selected)">
-      <div> -->
     <ion-col text-center tappable class="days" *ngFor="let day of weekDays"
       (click)="select(day)"
       [class.today]="day.isToday"
@@ -18,7 +12,6 @@
         <div class="number">{{day.number}}</div>
       </div>
     </ion-col>
-    <!-- <ion-col align-items-center ion-button clear small class="days" (click)="next()"> -->
     <ion-col tappable class="days" (click)="next()">
       <ion-icon name="arrow-forward"></ion-icon>
     </ion-col>
