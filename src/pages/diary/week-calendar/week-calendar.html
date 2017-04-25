@@ -1,4 +1,3 @@
-
 <ion-grid>
   <ion-row>
     <ion-col width-11 center ion-button clear small class="days" (click)="previous()">
@@ -10,7 +9,7 @@
       [class.active]="day.date.isSame(selected)">
       <div>
         <div>{{day.name}}</div>
-        <div>{{day.number}}</div>
+        <div class="number">{{day.number}}</div>
       </div>
     </ion-col>
     <ion-col width-11 center ion-button clear small class="days" (click)="next()">

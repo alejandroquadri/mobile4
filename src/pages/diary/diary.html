@@ -2,12 +2,9 @@
 <ion-header>
 
   <ion-navbar no-border-bottom>
-    <div class="nameDay">{{ day.format("dddd")}} {{ day.format("DD")}}  {{ day.format("MMMM")}}</div>
-  </ion-navbar>
-
-  <ion-toolbar no-border-bottom>
+    <h4 class="nameDay">{{ day.format("dddd")}} {{ day.format("DD")}}  {{ day.format("MMMM")}}</h4>
     <week-calendar [selected]="day" (selectedDay)="setDay($event)"></week-calendar>
-  </ion-toolbar>
+  </ion-navbar>
 
 </ion-header>
 

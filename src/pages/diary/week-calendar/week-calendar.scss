@@ -4,6 +4,10 @@ week-calendar {
     text-align: center;
   }
 
+  .grid {
+    padding: 0px
+  }
+
   .days {
     padding: 0px;
     margin: 0px;
@@ -13,7 +17,8 @@ week-calendar {
   }
 
   ion-row {
-    border-style: solid;
+    border-style: none;
+    /* lo de abajo no va a funcionar, porque camie el border style de solid a none */
     border-width: 0.5px;
     border-radius: 5px;
     border-color: lightgray;
