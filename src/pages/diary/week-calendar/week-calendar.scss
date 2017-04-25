@@ -1,9 +1,5 @@
 week-calendar {
 
-  div {
-    text-align: center;
-  }
-
   .grid {
     padding: 0px
   }
@@ -12,8 +8,8 @@ week-calendar {
     padding: 0px;
     margin: 0px;
     color: black;
-    margin-top: 2vh;
-    margin-bottom: 2vh;
+    margin-top: 0.8rem;
+    margin-bottom: 0.5rem;
   }
 
   ion-row {
@@ -22,6 +18,13 @@ week-calendar {
     border-width: 0.5px;
     border-radius: 5px;
     border-color: lightgray;
+  }
+
+  .number {
+    border-radius: 100px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 4px;
   }
 
   .active {
