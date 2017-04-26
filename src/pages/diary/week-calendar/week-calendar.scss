@@ -10,6 +10,7 @@ week-calendar {
     color: black;
     margin-top: 0.8rem;
     margin-bottom: 0.5rem;
+    font-weight: lighter;
   }
 
   ion-row {
@@ -28,11 +29,16 @@ week-calendar {
   }
 
   .active {
-    color: #FF0000;
+    // color: #FF0000;
+    font-weight: bold;
   }
 
   .today {
     color: rgb(42, 60, 170)
+  }
+
+  .commented {
+    background-color: #E3E3E3
   }
 
 }

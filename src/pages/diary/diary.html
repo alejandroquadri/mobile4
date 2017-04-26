@@ -3,7 +3,7 @@
 
   <ion-navbar no-border-bottom>
     <h4 class="nameDay">{{ day.format("dddd")}} {{ day.format("DD")}}  {{ day.format("MMMM")}}</h4>
-    <week-calendar [selected]="day" (selectedDay)="setDay($event)"></week-calendar>
+    <week-calendar [selected]="day" [commented]="commented" (selectedDay)="setDay($event)"></week-calendar>
   </ion-navbar>
 
 </ion-header>

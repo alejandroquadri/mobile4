@@ -10,10 +10,18 @@ export class WeekCalendarComponent {
   weekDays: any;
 
   @Input() selected: any;
+  @Input() commented: Array<string>;
   @Output() selectedDay = new EventEmitter();
 
   constructor() {
     this.buildWeek();
+    console.log(this.commented);
+  }
+
+  isCommented(day) {
+    if (this.commented.indexOf(day) !== -1) {
+      return true;
+    } else { return false }
   }
 
   select(day) {

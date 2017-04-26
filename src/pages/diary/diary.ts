@@ -21,6 +21,7 @@ export class DiaryPage {
   day: any = moment()
   completeDiary;
   diary;
+  commented: Array<string>
 
   constructor(
     public navCtrl: NavController,
@@ -40,7 +41,8 @@ export class DiaryPage {
     .subscribe(data => {
       this.completeDiary = data;
       this.diary = this.dateDiary()
-      this.commentedDates();
+      this.commented = this.commentedDates();
+      console.log(this.commented);
     })
   }
 
@@ -72,17 +74,17 @@ export class DiaryPage {
       // console.log(day);
       day.forEach( meal => {
         if ( meal[0] === '$') { return; }
-        console.log(meal, meal.rate, meal. reviews);
+        // console.log(meal, meal.rate, meal. reviews);
         if (meal.rate || meal.reviews) {
-          console.log('pasa el primero');
+          // console.log('pasa el primero');
           if (commented.indexOf(item.$key) === -1) {
-            console.log('pasa el ultimo', item.$key);
+            // console.log('pasa el ultimo', item.$key);
             commented.push(item.$key);
           } else { return; }
         }
       })
     })
-    console.log(commented);
+    // console.log(commented);
     return commented;
     
   }

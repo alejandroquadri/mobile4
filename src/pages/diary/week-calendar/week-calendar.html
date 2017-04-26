@@ -1,4 +1,4 @@
-<ion-grid>
+<ion-grid *ngIf="commented">
   <ion-row align-items-center>
     <ion-col class="days" (click)="previous()" tappable>
       <ion-icon name="arrow-back"></ion-icon>
@@ -8,8 +8,10 @@
       [class.today]="day.isToday"
       [class.active]="day.date.isSame(selected)">
       <div>
+        <!-- {{ day.date.format("YYYYMMDD") }} -->
         <div class="day">{{day.name}}</div>
-        <div class="number">{{day.number}}</div>
+        <div class="number" 
+        [class.commented]="isCommented(day.date.format('YYYYMMDD'))">{{day.number}}</div>
       </div>
     </ion-col>
     <ion-col tappable class="days" (click)="next()">
