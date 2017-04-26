@@ -15,7 +15,6 @@ export class WeekCalendarComponent {
 
   constructor() {
     this.buildWeek();
-    console.log(this.commented);
   }
 
   isCommented(day) {

@@ -37,8 +37,11 @@ export class ChatPage /*implements AfterViewChecked*/ {
   }
 
   ionViewDidEnter(){
+    console.log('entre');
     this.profileObject = this.profileData.current;
-    setTimeout(this.scrollToBottom(), 500);
+    setTimeout(() => {
+      this.scrollToBottom()
+    }, 500);
     this.chatService.mesRead();
   }
 

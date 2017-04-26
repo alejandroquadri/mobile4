@@ -42,7 +42,6 @@ export class DiaryPage {
       this.completeDiary = data;
       this.diary = this.dateDiary()
       this.commented = this.commentedDates();
-      console.log(this.commented);
     })
   }
 

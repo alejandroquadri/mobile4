@@ -42,8 +42,6 @@ export class ChatService {
     this.offCheckRead();
 
     this.added = this.chat.on('child_added', (data) => {
-      console.log(data.val());
-      console.log(this.profileData.current.$key);
       if (this.profileData.current.$key !== data.val().uid) {
         this.chat.child(data.key).update({read: true})
         .then(
@@ -55,7 +53,6 @@ export class ChatService {
   }
 
   offCheckRead() {
-    console.log('child added off');
     if (this.added) {
       this.chat.off('child_added', this.added)
     }
