@@ -16,7 +16,6 @@
 
   <div padding>
     <img [src]="profileForm.localPath || avatar" (click)="updateAvatar()">
-    <!-- <img [src]="profileForm.photoURL || avatar" (click)="updateAvatar2()"> -->
   </div>
 
   <form padding (ngSubmit)="updateUser()" #form="ngForm" novalidate>

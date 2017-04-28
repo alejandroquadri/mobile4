@@ -38,9 +38,7 @@ export class LoginPage {
     });
   }
 
-  ionViewDidLoad() {
-    console.log('Hello LoginPage Page');
-  }
+  ionViewDidLoad() {}
 
   goToResetPassword(){
     this.navCtrl.push(ResetPasswordPage);

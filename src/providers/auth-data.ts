@@ -11,11 +11,6 @@ export class AuthData {
   constructor(
     public af: AngularFire,
   ) {
-    // af.auth.subscribe( user => {
-    //   if (user) {
-    //     this.fireAuth = user.auth;
-    //   }
-    // });
     this.authObs = this.current()
     .subscribe( user => {
       if (user) { this.fireAuth = user.auth}

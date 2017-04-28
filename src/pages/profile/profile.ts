@@ -4,9 +4,6 @@ import { AngularFire } from 'angularfire2';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/skip';
 
-// pages
-import { LoginPage } from '../login/login';
-
 // clases
 import { Profile } from './profile.model';
 
@@ -45,15 +42,10 @@ export class ProfilePage {
 
   logOut(){
     this.authData.logoutUser()
-    .then(
-      ret => {
-        console.log('user unlogged', ret);
-        // this.navCtrl.pop()
-        this.navCtrl.setRoot(LoginPage);
-        // this.navCtrl.push(LoginPage);
-      },
+    .then( 
+      () => console.log('user unlogged'),
       err => console.log('error', err)
-    )
+    );
   }
 
   updateUser(){
@@ -66,7 +58,12 @@ export class ProfilePage {
       birthDate: this.profileForm.birthDate || '',
     }
     console.log('form a actualizar', updateProfile);
-    this.profileData.updateProfile(updateProfile);
+    this.profileData.updateProfileFan(updateProfile)
+    .then( 
+      ret => console.log('actualizado', ret),
+      err => console.log('error', err)
+    );
+
     if (this.profileForm.displayName) { 
       this.authData.setProfileData(this.profileForm.displayName)
       .then( 
@@ -85,7 +82,7 @@ export class ProfilePage {
     localImageObs.subscribe(
       (imageData:any) => {
         let form = {localPath: imageData}
-        this.profileData.updateProfile(form);
+        this.profileData.updateProfileFan(form);
       },
       err => console.log('error en localImageObs second', err),
       () => console.log('termino localImageObs second')
@@ -94,7 +91,7 @@ export class ProfilePage {
     webImageObs.subscribe(
       (imageData:any) => {
         let form = {url: imageData}
-        this.profileData.updateProfile(form);
+        this.profileData.updateProfileFan(form);
         this.authData.setProfileData(this.profileForm.displayName || '', imageData)
         .then(
           (ret) => console.log('update exitoso', ret),
