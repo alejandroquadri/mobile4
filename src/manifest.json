@@ -1,6 +1,6 @@
 {
-  "name": "Ionic",
-  "short_name": "Ionic",
+  "name": "DietApp",
+  "short_name": "DietApp",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{
