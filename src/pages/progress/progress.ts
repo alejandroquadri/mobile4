@@ -36,7 +36,6 @@ export class ProgressPage {
     this.weightLogs = this.weightService.getWeightLogs()
     this.weightLogs.subscribe( data => {
       this.weightLogsArray = data;
-      console.log(this.weightLogsArray);
       this.actualWeight(this.weightLogsArray);
       this.prepareChartData(this.weightLogsArray);
       this.buildGraph(this.data, this.labels);
