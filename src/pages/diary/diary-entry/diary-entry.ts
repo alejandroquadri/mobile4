@@ -7,6 +7,7 @@ import {AngularFire} from 'angularfire2';
 // servicios
 import { CameraService } from '../../../providers/camera-service';
 import { DiaryData } from '../../../providers/diary-data';
+import { ActivityService } from '../../../providers/activity.service'
 
 @Component({
   selector: 'diary-entry',
@@ -23,6 +24,7 @@ export class DiaryEntryComponent {
     public camera: CameraService,
     public alertCtrl: AlertController,
     public diaryData: DiaryData,
+    public activityService: ActivityService,
     public af: AngularFire,
   ) {}
 
@@ -30,92 +32,75 @@ export class DiaryEntryComponent {
     this.detail.emit(meal);
   }
 
-  addText(key?: string){
+  addPicture() {
+    let key;
+    const day = this.day.format("YYYYMMDD");
+    this.camera.takePicture('diary', 30);
+    let diaryImageObs = this.camera.imageData.take(1);
+    let uploadObs = this.camera.uploadData.take(1);
+
+    diaryImageObs.subscribe( (img: any) => {
+      if (img !=='cancelled') {
+        this.diaryData.pushEntry({
+          state: 'pending',
+          order: this.mealInput.order, 
+          meal: this.mealInput.meal,
+          localImages: [img.localImage]
+        }, day)
+        .then( ret => {
+          key = ret.key;
+          this.camera.toBlob(img.file);
+          this.text().then(text => {
+            if( text !== "") {
+              this.diaryData.updateList({text: text}, key, day)
+            }
+          });
+        });
+      }
+    });
+
+    uploadObs.subscribe( url => {
+      this.diaryData.updateList({webImages:[url]}, key, day)
+      .then( () => {
+        this.activityService.updatePendingReviewCount()
+        .then ( () => console.log('updated pending'))
+      })
+    });
+  }
+
+  newText() {
+    this.text().then(text => {
+      console.log(text);
+      this.diaryData.pushEntry({
+          state: 'pending',
+          order: this.mealInput.order, 
+          meal: this.mealInput.meal,
+          text: text
+        }, this.day.format("YYYYMMDD"))
+      .then( () => this.activityService.updatePendingReviewCount())
+    });
+  }
+
+  private text (){
+    return new Promise((resolve, reject) => {
     let alert = this.alertCtrl.create({
       message: "Que comiste?",
       inputs: [{
           name: "meal",
           placeholder: "Que comiste?",
-          value: this.mealInput.text || ''
       }],
       buttons: [
         { text: 'Cancelar'},
         { text: 'Guardar',
           handler: data => {
-            if (key) {
-              this.update('text',data.meal, key)
-            } else {
-              this.update('text',data.meal);              
-            }
+            console.log(data);
+            resolve(data.meal) 
           }
         }
       ]
     });
     alert.present();
-  }
-
-  addPicture(){
-    let localImages, webImages, key
-    if (this.mealInput.localImages){
-      localImages = this.mealInput.localImages;
-    } else {
-      localImages = [];
-    }
-
-    if (this.mealInput.webImages){
-      webImages = this.mealInput.webImages;
-    } else {
-      webImages = [];
-    }
-    
-    this.camera.takePicture('diary', 30);
-    let diaryImageObsFirst = this.camera.imageData.take(1);
-    let diaryImageObsSecond = this.camera.imageData.take(2).skip(1);
-
-    diaryImageObsFirst.subscribe(
-      (imageData:any) => {
-        localImages.push(imageData);
-        this.update('localImages',localImages)
-        .then(
-          ret => {
-            console.log('key array', ret.key)
-            key = ret.key
-            if (!this.mealInput.text) {this.addText(key)}
-          },
-          err => console.log('error', err)
-        );
-      },
-      err => console.log('error en diaryImageObs first', err),
-      () => {
-        console.log('termino diaryImageObs first')
-      }
-    );
-
-    diaryImageObsSecond.subscribe(
-      (imageData:any) => {
-        webImages.push(imageData);
-        this.update('webImages',webImages, key);
-      },
-      err => console.log('error en diaryImageObs second', err),
-      () => console.log('termino diaryImageObs second')
-    );
-  }
-
-  private update(prop: string, value: any, key?: string): any {
-    let form = {
-      state: 'pending',
-      order: this.mealInput.order, 
-      meal: this.mealInput.meal
-    };
-    form[prop] = value;
-    if (this.mealInput.$key || key) {
-      console.log('existe');
-      if (this.mealInput.$key) { key = this.mealInput.$key}
-      return this.diaryData.updateList(form, key, this.day.format("YYYYMMDD"))
-    } else {
-      console.log('no existe');
-      return this.diaryData.pushEntry(form, this.day.format("YYYYMMDD"))
-    }
+    });
   }
 
 }

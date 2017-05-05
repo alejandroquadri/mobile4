@@ -42,6 +42,10 @@ diary-entry {
     color: lightgrey
   }
 
+  .review { 
+    color: map-get($colors, primary);
+  }
+
   .okIcon {
     color: map-get($colors, secondary);
   }

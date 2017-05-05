@@ -55,14 +55,17 @@ export class MealDetailPage {
 
     this.camera.takePicture('diary', 30);
     let diaryImageObsFirst = this.camera.imageData.take(1);
-    let diaryImageObsSecond = this.camera.imageData.take(2).skip(1);
+    let uploadObs = this.camera.uploadData.take(1);
 
     diaryImageObsFirst.subscribe(
       (imageData:any) => {
-        localImages.push(imageData);
+        localImages.push(imageData.localImage);
         this.diaryData.updateList({localImages: localImages}, this.mealParams.$key,this.mealParams.date)
         .then( 
-          ret => console.log('local image saved', ret),
+          ret => {
+            console.log('local image saved', ret);
+            this.camera.toBlob(imageData.file);
+          },
           err => console.log('error', err)
         );
       },
@@ -72,8 +75,8 @@ export class MealDetailPage {
       }
     );
 
-    diaryImageObsSecond.subscribe(
-      (imageData:any) => {
+    uploadObs.subscribe( 
+      imageData => {
         webImages.push(imageData);
         this.diaryData.updateList({webImages: webImages, state: 'pending'}, this.mealParams.$key,this.mealParams.date)
         .then( 
@@ -83,7 +86,7 @@ export class MealDetailPage {
       },
       err => console.log('error en diaryImageObs second', err),
       () => console.log('termino diaryImageObs second')
-    );
+     )
 
   }
 
@@ -133,10 +136,6 @@ export class MealDetailPage {
   send(mes) {
     console.log(mes);
     this.txtChat.content = '';
-  }
-
-  addPciture() {
-    
   }
 
 }

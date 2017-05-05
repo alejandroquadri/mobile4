@@ -18,7 +18,7 @@
         </button>
       </div>
       <ion-slides pager>
-        <ion-slide *ngFor="let image of (meal | async).localImages">
+        <ion-slide *ngFor="let image of (meal | async).localImages | objectIterate">
           <img [src]="image" class="slide-image"/>
         </ion-slide>
       </ion-slides>

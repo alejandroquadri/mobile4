@@ -5,19 +5,26 @@
       <span left >{{ mealInput.meal }}</span>
     </ion-card-header>
 
+    <!-- ** cuando hay foto sacada -->
     <div class="slides" *ngIf="mealInput.localImages">
       <!-- <div class="addPicture">
         <button ion-fab mini (click)="addPicture()">
           <ion-icon name="add"></ion-icon>
         </button>
       </div> -->
+      <!-- <ion-slides pager (click)="goToDetail(mealInput)" tappable>
+        <ion-slide *ngFor="let image of mealInput.localImages">
+          <img [src]="image" class="slide-image"/>
+        </ion-slide>
+      </ion-slides> -->
       <ion-slides pager (click)="goToDetail(mealInput)" tappable>
         <ion-slide *ngFor="let image of mealInput.localImages">
           <img [src]="image" class="slide-image"/>
         </ion-slide>
       </ion-slides>
     </div>
-
+  
+    <!-- ** cuando hay texto, pero no imagenes -->
     <div *ngIf="!mealInput.localImages && mealInput.text" class="newMeal">
       <!-- <div class="addPicture">
         <button ion-fab mini (click)="addPicture()">
@@ -28,17 +35,20 @@
         <p> {{ mealInput.text }} </p>
       </div>
     </div>
-
+    
+    <!-- ** cuando no hay nada, ni imagen, ni texto agregado -->
     <div *ngIf="!mealInput.localImages && !mealInput.text" class="newMeal">
       <div class="camera" (click)="addPicture()" tappable>
         <ion-icon name="camera"></ion-icon>
       </div>
     </div>
-
-    <ion-card-content (click)="addText()" tappable *ngIf="!mealInput.text">
-      <span><ion-icon name="create"></ion-icon> ¿Que comiste?</span>
+    
+    <!-- ** aparece cuando no hay foto ni texto -->
+    <ion-card-content (click)="newText()" tappable *ngIf="!(mealInput.localImages || mealInput.text)">
+      <span><ion-icon name="create"></ion-icon> ¿Que comiste?</span> 
     </ion-card-content>
-
+  
+    <!-- ** aparece cuando hay foto o  texto -->
     <div *ngIf="mealInput.text || mealInput.localImages">
       <ion-row align-items-center>
        <ion-col col-3 align-self-center text-center>
@@ -53,7 +63,8 @@
        </ion-col>
        <ion-col col-9 align-self-center>
          <button ion-button icon-left clear small>
-           <ion-icon name="text" class="noReview"></ion-icon>
+           <ion-icon name="text" class="noReview"
+           [ngClass] = "{'review': mealInput.reviews }"></ion-icon>
             <div>
              <span *ngIf="mealInput.reviews"> {{ mealInput.reviews | countKeys }} comentarios</span>
              <span *ngIf="!mealInput.reviews">no hay comentarios</span>

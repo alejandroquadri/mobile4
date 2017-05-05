@@ -16,14 +16,13 @@ import { AuthData } from './auth-data';
 
 declare var cordova: any;
 
+
 @Injectable()
 export class CameraService {
 
   public storage: any;
   public imageDataSubject = new Subject();
   public imageData = this.imageDataSubject.asObservable();
-  public uploadSubject = new Subject();
-  public uploadData = this.uploadSubject.asObservable();
   public data = {};
   public path;
   private quality: number;
@@ -40,6 +39,17 @@ export class CameraService {
     this.path = path;
     this.quality = quality;
     this.openActionSheet()
+  }
+
+  // esta funcion es para poder dar el path correcto de la foto guardadad
+  // en el dispositivo
+  pathForImage(img) {
+    // console.log('usa path con esta imagen', img);
+    if (img === null) {
+      return '';
+    } else {
+      return cordova.file.dataDirectory + img;
+    }
   }
 
   openActionSheet() {
@@ -65,7 +75,6 @@ export class CameraService {
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');
-            this.imageDataSubject.next('cancelled')
           }
         }
       ]
@@ -107,32 +116,28 @@ export class CameraService {
       // console.log('copio correctamente')
       let localImage = this.pathForImage(newFileName);
       // console.log('imagen local', localImage);
-      this.imageDataSubject.next({
-        localImage: localImage,
-        file: newFileName
-      });
+      this.imageDataSubject.next(localImage);
+
+      this.toBlob(newFileName)
     }, (err) => {
       console.log('Error en copyFileToLocalDir');
     });
   }
 
-  // esta funcion es para poder dar el path correcto de la foto guardadad
-  // en el dispositivo
-  private pathForImage(img) {
-    // console.log('usa path con esta imagen', img);
-    if (img === null) {
-      return '';
-    } else {
-      return cordova.file.dataDirectory + img;
-
-    }
+  // creates a FileName for storing
+  private createFileName() {
+    var d = new Date(),
+    n = d.getTime(),
+    newFileName =  n + ".jpg";
+    return newFileName;
   }
 
   // creates a Blob from the stored file to upload
-  toBlob(image) {
+  private toBlob(image) {
+    // console.log('arranca toBlob');
     this.file.readAsArrayBuffer(cordova.file.dataDirectory, image)
     .then( (success) => {
-        const blob = new Blob([success], {type: 'image/jpeg'});
+        var blob = new Blob([success], {type: 'image/jpeg'});
         this.uploadImage(blob);
     }, (error) => {
         console.error(error);
@@ -141,24 +146,20 @@ export class CameraService {
 
   // uploads image
   private uploadImage (image){
+    // console.log('arranca uploadImage2', JSON.stringify(image));
     let imageName = this.createFileName();
+    // console.log('auth', this.authData.fireAuth.uid);
     let storageRef = firebase.storage().ref()
     let uploadTask = storageRef.child(`${this.authData.fireAuth.uid}/images/${this.path}`).child(imageName).put(image)
 
     uploadTask.on('state_changed', (snapshot) => {
+        // console.log(snapshot);
     }, (error) => {
+        console.error(error);
     }, () => {
         let downloadURL = uploadTask.snapshot.downloadURL;
-        this.uploadSubject.next(downloadURL);
+        this.imageDataSubject.next(downloadURL);
     })
-  }
-
-  // creates a FileName for storing
-  private createFileName() {
-    let d = new Date(),
-    n = d.getTime(),
-    newFileName =  n + ".jpg";
-    return newFileName;
   }
 
   // prueba obs en config

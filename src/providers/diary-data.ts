@@ -40,4 +40,10 @@ export class DiaryData {
     .push(review);
   }
 
+  pushImg(day, key, path, img) {
+    console.log('push img', img)
+    return this.af.database.list(`/diary/${this.authData.fireAuth.uid}/${day}/${key}/${path}`)
+    .push(img)
+  }
+
 }
