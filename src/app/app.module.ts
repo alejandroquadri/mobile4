@@ -41,6 +41,7 @@ import { DiaryData } from '../providers/diary-data';
 import { ChatService } from '../providers/chat-service';
 import { WeightService } from '../providers/weight-service';
 import { ActivityService } from '../providers/activity.service';
+import { PresenceService } from '../providers';
 
 // pipes
 import { SortPipe } from '../shared/pipes/sort.pipe';
@@ -133,6 +134,7 @@ const myFirebaseAuthConfig = {
     ChatService,
     WeightService,
     ActivityService,
+    PresenceService,
     SortPipe,
     SortAddPipe,
     ObjectToArrayPipe,

@@ -8,6 +8,7 @@ import { AngularFire } from 'angularfire2';
 
 import { AuthData } from '../providers/auth-data';
 import { ProfileData } from '../providers/profile-data';
+import { PresenceService } from '../providers';
 
 
 // paginas
@@ -27,7 +28,8 @@ export class MyApp {
     public splashScreen: SplashScreen,
     public keyboard: Keyboard,
     public authData: AuthData,
-    public profileData: ProfileData
+    public profileData: ProfileData,
+    public presenceService: PresenceService
   ) {
     this.authData.current().subscribe( user => {
       if (user) {
@@ -40,6 +42,10 @@ export class MyApp {
       } else {
         this.rootPage = LoginPage;
       }
+    })
+
+    this.presenceService.connected.subscribe( con => {
+      console.log('is connected', con);
     })
 
     this.platform.ready().then(() => {

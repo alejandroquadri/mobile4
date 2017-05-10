@@ -142,10 +142,11 @@ export class CameraService {
   // uploads image
   private uploadImage (image){
     let imageName = this.createFileName();
-    let storageRef = firebase.storage().ref()
-    let uploadTask = storageRef.child(`${this.authData.fireAuth.uid}/images/${this.path}`).child(imageName).put(image)
+    let storageRef = firebase.storage().ref().child(`${this.authData.fireAuth.uid}/images/${this.path}`).child(imageName)
+    let uploadTask = storageRef.put(image)
 
-    uploadTask.on('state_changed', (snapshot) => {
+    uploadTask.on('state_changed', snapshot => {
+      console.log(snapshot);
     }, (error) => {
     }, () => {
         let downloadURL = uploadTask.snapshot.downloadURL;
