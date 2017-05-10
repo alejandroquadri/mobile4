@@ -6,9 +6,9 @@ import { Keyboard } from '@ionic-native/keyboard';
 
 import { AngularFire } from 'angularfire2';
 
-import { AuthData } from '../providers/auth-data';
-import { ProfileData } from '../providers/profile-data';
-import { PresenceService } from '../providers';
+// import { AuthData } from '../providers/auth-data';
+// import { ProfileData } from '../providers/profile-data';
+import { AuthData, ProfileData, PresenceService } from '../providers';
 
 
 // paginas

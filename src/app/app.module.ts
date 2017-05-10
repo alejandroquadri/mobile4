@@ -33,15 +33,15 @@ import { WeekCalendarComponent } from '../pages/diary/week-calendar/week-calenda
 import { DiaryEntryComponent } from '../pages/diary/diary-entry/diary-entry';
 import { ElasticTextarea } from '../shared/components/elastic-text-area.component';
 
-// providers importados
-import { AuthData } from '../providers/auth-data';
-import { ProfileData } from '../providers/profile-data';
-import { CameraService } from '../providers/camera-service';
-import { DiaryData } from '../providers/diary-data';
-import { ChatService } from '../providers/chat-service';
-import { WeightService } from '../providers/weight-service';
-import { ActivityService } from '../providers/activity.service';
-import { PresenceService } from '../providers';
+// Servicios
+import { AuthData, 
+        ProfileData, 
+        CameraService, 
+        DiaryData, 
+        ChatService, 
+        WeightService, 
+        ActivityService, 
+        PresenceService } from '../providers';
 
 // pipes
 import { SortPipe } from '../shared/pipes/sort.pipe';
