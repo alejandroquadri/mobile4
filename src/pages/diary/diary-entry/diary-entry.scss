@@ -50,6 +50,10 @@ diary-entry {
     color: map-get($colors, secondary);
   }
 
+  .regular {
+    color: #FFCC33;
+  }
+
   .wrongIcon {
     color: map-get($colors, danger);
   }
