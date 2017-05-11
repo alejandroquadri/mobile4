@@ -19,4 +19,34 @@ export class ActivityService {
     });
   }
 
+  updateUnreadMsgCoach(add: boolean) {
+    return firebase.database().ref(`/activity/coaches/${this.profileData.current.coach}/${this.profileData.current.$key}/unreadMsgs`)
+    .transaction( value => {      
+        if (add) {
+          return value + 1;
+        } else {
+          if (value > 0) {
+            return value - 1;
+          } else {
+            return value;
+          }
+        }
+    });
+  }
+
+  updateUnreadMsgPatient(add: boolean) {
+   return firebase.database().ref(`/activity/patients/${this.profileData.current.$key}/unreadMsgs`)
+    .transaction( value => {      
+        if (add) {
+          return value + 1;
+        } else {
+          if (value > 0) {
+            return value - 1;
+          } else {
+            return value;
+          }
+        }
+    }); 
+  }
+
 }

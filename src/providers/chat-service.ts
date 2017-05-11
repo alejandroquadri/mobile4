@@ -3,6 +3,7 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import * as firebase from 'firebase';
 
 import { ProfileData } from './profile-data';
+import { ActivityService } from './activity.service';
 
 @Injectable()
 export class ChatService {
@@ -15,6 +16,7 @@ export class ChatService {
   	public af: AngularFire,
     public zone: NgZone,
     public profileData: ProfileData,
+    public activityService: ActivityService
 	){
     this.chat = firebase.database().ref(`/chats/${this.profileData.current.coach}&${this.profileData.current.$key}`);
   }
@@ -42,12 +44,13 @@ export class ChatService {
     this.offCheckRead();
 
     this.added = this.chat.on('child_added', (data) => {
-      if (this.profileData.current.$key !== data.val().uid) {
+      if ((this.profileData.current.$key !== data.val().uid) && (data.val().read === false)) {
         this.chat.child(data.key).update({read: true})
         .then(
           () => console.log('updated'),
           err => console.log('error')
         );
+        this.activityService.updateUnreadMsgPatient(false);
       }
     });
   }

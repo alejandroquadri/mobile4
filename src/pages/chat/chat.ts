@@ -3,14 +3,13 @@ import { NavController } from 'ionic-angular';
 import { AngularFire,  } from 'angularfire2';
 import * as moment from 'moment';
 
-import { ProfileData } from '../../providers/profile-data';
-import { ChatService } from '../../providers/chat-service';
+import { ProfileData, ChatService, ActivityService } from '../../providers';
 
 @Component({
   selector: 'page-chat',
   templateUrl: 'chat.html'
 })
-export class ChatPage /*implements AfterViewChecked*/ {
+export class ChatPage {
 
   messages: any;
   profile: any;
@@ -24,7 +23,8 @@ export class ChatPage /*implements AfterViewChecked*/ {
     public navCtrl: NavController,
     public af: AngularFire,
     public profileData: ProfileData,
-    public chatService: ChatService
+    public chatService: ChatService,
+    public activityService: ActivityService
 ) {}
 
   ionViewDidLoad() {
@@ -66,12 +66,14 @@ export class ChatPage /*implements AfterViewChecked*/ {
       this.chatService.pushMsg(this.profileObject.coach, this.profileObject.$key, form)
       .then (
         (ret) => {
+          this.activityService.updateUnreadMsgCoach(true);
           console.log('msg sent'); 
           this.txtChat.content = '';
           this.scrollToBottom();
         },
         (err) => console.log('error', err)
       );
+
     }
   }
 
