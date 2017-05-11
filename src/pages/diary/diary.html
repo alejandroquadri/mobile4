@@ -2,9 +2,17 @@
 <ion-header>
 
   <ion-navbar no-border-bottom>
-    <h4 class="nameDay">{{ day.format("dddd")}} {{ day.format("DD")}}  {{ day.format("MMMM")}}</h4>
-    <week-calendar [selected]="day" [commented]="commented" (selectedDay)="setDay($event)"></week-calendar>
+    <ion-title class="nameDay">{{ day.format("dddd")}} {{ day.format("DD")}}  {{ day.format("MMMM")}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="ios-notifications-outline"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
+
+  <ion-toolbar>
+		<week-calendar [selected]="day" [commented]="commented" (selectedDay)="setDay($event)"></week-calendar>
+  </ion-toolbar>
 
 </ion-header>
 
