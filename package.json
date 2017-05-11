@@ -29,6 +29,7 @@
     "angularfire2": "^2.0.0-beta.8",
     "chart.js": "^2.5.0",
     "firebase": "^3.7.4",
+    "font-awesome": "^4.7.0",
     "ionic-angular": "3.0.1",
     "ionicons": "3.0.0",
     "moment": "^2.18.1",
@@ -58,5 +59,8 @@
       "locator": "ios"
     }
   ],
-  "description": "mobile4: An Ionic project"
+  "description": "mobile4: An Ionic project",
+  "config": {
+    "ionic_copy": "./scripts/copy-custom-libs.js"
+  }
 }
