@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, ModalController } from 'ionic-angular';
 import * as moment from 'moment';
 
 // pages
 import { MealDetailPage} from '../meal-detail/meal-detail';
+import { ActivityPage } from '../activity/activity';
 
 // servicios
-import { DiaryData } from '../../providers/diary-data';
+import { DiaryData, ActivityService } from '../../providers';
 
 // pipes
 import { SortAddPipe } from '../../shared/pipes/sort-add.pipe';
@@ -22,27 +23,41 @@ export class DiaryPage {
   completeDiary;
   diary;
   commented: Array<string>
+  activity: any
 
   constructor(
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
     public diaryData: DiaryData,
+    public activityService: ActivityService,
     private sortAddPipe: SortAddPipe,
-    private objectToArray: ObjectToArrayPipe
+    private objectToArray: ObjectToArrayPipe,
+    public modalCtrl: ModalController
   ) {
-    this.getData()
+    this.getData();
+    this.getActivity();
   }
 
   ionViewDidLoad() {
   }
 
   getData() {
-    this.diaryData.getDiary()
+    // this.diaryData.getDiary()
+    this.diaryData.diaryObs
     .subscribe(data => {
       this.completeDiary = data;
       this.diary = this.dateDiary()
       this.commented = this.commentedDates();
     })
+  }
+
+  getActivity() {
+    this.activity = this.activityService.activityObs;
+  }
+
+  presentActivity() {
+    let modal = this.modalCtrl.create(ActivityPage);
+    modal.present()
   }
 
   setDay(day){
@@ -51,6 +66,7 @@ export class DiaryPage {
   }
 
   detail(meal: any) {
+    console.log(meal);
     meal['date'] = this.day.format("YYYYMMDD")
     this.navCtrl.push(MealDetailPage, meal);
   }

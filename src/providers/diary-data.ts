@@ -1,23 +1,34 @@
 import { Injectable } from '@angular/core';
 import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
-import { Observable } from 'rxjs/Observable';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import 'rxjs/add/operator/map';
+import * as firebase from 'firebase';
 
 import { AuthData } from './auth-data';
 
 @Injectable()
 export class DiaryData {
 
-  public dayObs: Observable<any>;
-  lastArray: string;
+  diarySubject = new ReplaySubject(1);
+  diaryObs = this.diarySubject.asObservable();
+  diary: any;
 
   constructor(
     public af: AngularFire,
     public authData: AuthData,
-  ) {}
+  ) {
+    this.getDiary().subscribe( diary => {
+      this.diarySubject.next(diary);
+      this.diary = diary;
+    });
+  }
 
   getDiary(): FirebaseObjectObservable<any> {
     return this.af.database.object(`/diary/${this.authData.fireAuth.uid}`);
+  }
+
+  getDetail(date, key) {
+    return firebase.database().ref(`/diary/${this.authData.fireAuth.uid}/${date}/${key}`).once('value');
   }
 
   updateList(form, key, day:string): firebase.Promise<void> {
@@ -33,6 +44,12 @@ export class DiaryData {
 
   getMeal(day, array): FirebaseObjectObservable<any> {
     return this.af.database.object(`/diary/${this.authData.fireAuth.uid}/${day}/${array}`)
+  }
+
+  getMeal2 (day, array) {
+    this.diaryObs.subscribe( diary => {
+      return diary[this.authData.fireAuth.uid][day][array];
+    })
   }
 
   pushReview(day,array,review): firebase.database.ThenableReference {

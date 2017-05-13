@@ -41,13 +41,33 @@
 
     <div class="text">
       <ion-row align-items-center>
+        <ion-col col-3 align-self-center text-center>
+         <span icon-left small ion-text>
+           <span class="noReview"
+           [ngClass] = "{ 'okIcon': ((meal | async).rate === 'ok'? true : false) }">
+             <i class="fa fa-check-circle" aria-hidden="true"></i>
+           </span>
+         </span>
+         <span icon-left small ion-text>
+           <span class="noReview"
+           [ngClass] = "{ 'regular': ((meal | async).rate === 'regular'? true : false) }">
+             <i class="fa fa-minus-circle" aria-hidden="true"></i>
+           </span>
+         </span>
+         <span icon-left small>
+           <span class="noReview"
+           [ngClass] = "{ 'wrongIcon': ((meal | async).rate === 'notok'? true : false) }">
+             <i class="fa fa-times-circle" aria-hidden="true"></i>
+           </span>
+         </span>
+       </ion-col>
+        <ion-col col-7>
+          <ion-note *ngIf="(meal | async).localImages && (meal | async).text">{{ (meal | async).text }}</ion-note>
+        </ion-col>
         <ion-col col-2 text-center>
           <button ion-button icon-center clear small (click)="editText()">
              <span icon-center ion-text style="font-size: 3vh;"><ion-icon name="create"></ion-icon></span>
           </button>
-        </ion-col>
-        <ion-col col-10>
-          <ion-note *ngIf="(meal | async).localImages && (meal | async).text">{{ (meal | async).text }}</ion-note>
         </ion-col>
       </ion-row>
     </div>

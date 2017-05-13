@@ -1,0 +1,63 @@
+<ion-header>
+
+	<ion-toolbar>
+    <ion-title>
+      Actividad
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Cancelar</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list *ngIf="newActivity">
+	  <ion-list-header *ngIf="newActivity.length !== 0">Nuevo</ion-list-header>
+	 	<div *ngFor="let item of newActivity">
+	 		<ion-item>
+		    <ion-thumbnail item-left>
+			    <div *ngIf="(diary | async)[item.date][item.key].webImages" >
+			    	<img [src]="(diary | async)[item.date][item.key].webImages[0]">
+			    </div>
+			    <div *ngIf="!(diary | async)[item.date][item.key].webImages" >
+			    	<img [src]="food">
+			    </div>
+		    </ion-thumbnail>
+		    <h3> {{ (diary | async)[item.date][item.key].meal }} </h3>
+		    <p class="message">{{ item.text }}</p>
+		    <button ion-button icon-only small clear item-right (click)="goToDetail(item.date, item.key, true, item.$key)">
+		    	<ion-icon name="search"></ion-icon>
+		    </button>
+		  </ion-item>
+	 	</div> 	
+  	
+
+		<ion-list-header >Anterior</ion-list-header>
+		
+		<div *ngFor="let item of oldActivity">
+	 		<ion-item>
+		    <ion-thumbnail item-left>
+			    <div *ngIf="(diary | async)[item.date][item.key].webImages" >
+			    	<img [src]="(diary | async)[item.date][item.key].webImages[0]">
+			    </div>
+			    <div *ngIf="!(diary | async)[item.date][item.key].webImages" >
+			    	<img [src]="food">
+			    </div>
+		    </ion-thumbnail>
+		    <h2> {{ (diary | async)[item.date][item.key].meal }} </h2>
+		    <p>{{ item.text }}</p>
+		    <button ion-button icon-only small clear item-right (click)="goToDetail(item.date, item.key)">
+		    	<ion-icon name="search"></ion-icon>
+		    </button>
+		  </ion-item>
+	 	</div> 	
+
+	</ion-list>
+
+</ion-content>

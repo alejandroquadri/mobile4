@@ -52,4 +52,24 @@ page-meal-detail {
     position: static;
   }
 
+  .noReview {
+    color: lightgrey
+  }
+
+  .review { 
+    color: map-get($colors, primary);
+  }
+
+  .okIcon {
+    color: map-get($colors, secondary);
+  }
+
+  .regular {
+    color: #FFCC33;
+  }
+
+  .wrongIcon {
+    color: map-get($colors, danger);
+  }
+
 }
