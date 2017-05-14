@@ -6,8 +6,6 @@ import { Keyboard } from '@ionic-native/keyboard';
 
 import { AngularFire } from 'angularfire2';
 
-// import { AuthData } from '../providers/auth-data';
-// import { ProfileData } from '../providers/profile-data';
 import { AuthData, ProfileData, PresenceService } from '../providers';
 
 
@@ -20,6 +18,7 @@ import { LoginPage } from '../pages/login/login';
 })
 export class MyApp {
   rootPage: any;
+  first = true;
 
   constructor(
     public platform: Platform,
@@ -31,26 +30,29 @@ export class MyApp {
     public profileData: ProfileData,
     public presenceService: PresenceService
   ) {
-    this.authData.current().subscribe( user => {
-      if (user) {
-        this.profileData.getProfile()
-        .subscribe( profile => {
-          if (profile) {
-            this.rootPage = TabsPage;
-          }
-        })
-      } else {
-        this.rootPage = LoginPage;
-      }
-    })
-
-    this.presenceService.connected.subscribe( con => {
-      console.log('is connected', con);
-    })
-
     this.platform.ready().then(() => {
-      statusBar.styleDefault();
-      splashScreen.hide();
+      console.log('platform ready');
+      this.authData.current().subscribe( user => {
+        if (user) {
+          this.profileData.getProfile()
+          .subscribe( profile => {
+            console.log('profile cargado');
+            if (profile) {
+              this.rootPage = TabsPage;
+              if (this.first) { 
+                statusBar.styleDefault();
+                splashScreen.hide();
+              }
+            }
+          })
+        } else {
+          this.rootPage = LoginPage;
+        }
+      })
+
+      this.presenceService.connected.subscribe( con => {
+        console.log('is connected', con);
+      })
       
       keyboard.onKeyboardShow().subscribe(() => {
         document.body.classList.add('keyboard-is-open');
@@ -62,5 +64,4 @@ export class MyApp {
     })
 
   }
-
 }
