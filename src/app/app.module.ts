@@ -32,7 +32,8 @@ import { ActivityPage } from '../pages/activity/activity';
 // Components
 import { WeekCalendarComponent } from '../pages/diary/week-calendar/week-calendar';
 import { DiaryEntryComponent } from '../pages/diary/diary-entry/diary-entry';
-import { ElasticTextarea } from '../shared/components/elastic-text-area.component';
+import { ChatUiTextCompnent } from '../shared/components/elastic-text-area/elastic-text-area.component';
+import { ChatUIInput }  from '../components/chat-ui-input/chat-ui-input'
 
 // Servicios
 import { AuthData, 
@@ -87,7 +88,8 @@ const myFirebaseAuthConfig = {
     ActivityPage,
     WeekCalendarComponent,
     DiaryEntryComponent,
-    ElasticTextarea,
+    ChatUiTextCompnent,
+    ChatUIInput,
     SortPipe,
     SortAddPipe,
     ObjectToArrayPipe,
@@ -121,7 +123,8 @@ const myFirebaseAuthConfig = {
     MealDetailPage,
     ActivityPage,
     WeekCalendarComponent,
-    DiaryEntryComponent
+    DiaryEntryComponent,
+    ChatUIInput
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

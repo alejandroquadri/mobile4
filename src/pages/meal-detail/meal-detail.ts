@@ -115,10 +115,10 @@ export class MealDetailPage {
     alert.present();
   }
 
-  sendReview() {
-  	console.log(this.txtChat.content);
+  sendReview(mes) {
+  	// console.log(this.txtChat.content);
   	let form = {
-  		message: this.txtChat.content,
+  		message: mes,
   		name: this.profile.displayName,
   		timestamp: moment().format(),
   	}
@@ -126,16 +126,15 @@ export class MealDetailPage {
   	.then( 
   		ret => {
   		console.log('enviado', ret);
-  		this.txtChat.content = '';
       this.diaryData.updateList({state: 'pending'},this.mealParams.$key,this.mealParams.date);
 	  	},
 	  	err => console.log('error al enviar mensaje', err)
   	);
   }
 
-  send(mes) {
-    console.log(mes);
-    this.txtChat.content = '';
-  }
+  // send(mes) {
+  //   console.log(mes);
+  //   this.txtChat.content = '';
+  // }
 
 }

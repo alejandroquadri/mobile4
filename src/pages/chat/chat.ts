@@ -16,8 +16,9 @@ export class ChatPage {
   profileObject: any
   coachProfile: any;
   chat: any;
-  @ViewChild('txtChat') txtChat;
+  // @ViewChild('txtChat') txtChat;
   @ViewChild('chatUi') chatUi;
+  lineHeight = 14;
 
   constructor(
     public navCtrl: NavController,
@@ -51,13 +52,13 @@ export class ChatPage {
 
   scrollToBottom(): void {
     console.log('to bottom');
-    this.chatUi.scrollToBottom(300);
+    this.chatUi.scrollToBottom();
   }  
 
-  send() {
-    if (this.txtChat.content !== '') {
+  send(mes) {
+    if (mes !== '') {
       let form = {
-        content: this.txtChat.content,
+        content: mes,
         uid: this.profileObject.$key,
         read: false,
         displayName: this.profileObject.displayName,
@@ -67,8 +68,6 @@ export class ChatPage {
       .then (
         (ret) => {
           this.activityService.updateUnreadMsgCoach(true);
-          console.log('msg sent'); 
-          this.txtChat.content = '';
           this.scrollToBottom();
         },
         (err) => console.log('error', err)

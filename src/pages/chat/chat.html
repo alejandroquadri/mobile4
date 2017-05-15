@@ -30,14 +30,15 @@
 </ion-content>
 
 <ion-footer class="chatPageFooter">
+  <chat-ui-input (sendMes)="send($event)" tappable></chat-ui-input>
+</ion-footer>
 
-  <ion-toolbar color="ligther"> 
-    <elastic-textarea #txtChat lineHeight="22" tappable></elastic-textarea>
+<!-- <ion-toolbar color="ligther"> 
+    <chat-ui-input #txtChat [lineHeight]="lineHeight" tappable></chat-ui-input>
     <ion-buttons right>
       <button (click)="send()" ion-button color="primary">
         <ion-icon name="send"></ion-icon>
       </button>
-    </ion-buttons>
+  </ion-buttons>
 
-  </ion-toolbar>
-</ion-footer>
+  </ion-toolbar> -->

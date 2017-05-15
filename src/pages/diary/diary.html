@@ -6,9 +6,9 @@
     <ion-buttons end>
       <button ion-button icon-only small (click)="presentActivity()" >
         <ion-icon name="ios-notifications-outline" 
-        *ngIf="(activity | async)?.unReadFeed ===0"></ion-icon>
+        *ngIf="((activity | async)?.unReadFeed ===0) || !(activity | async)?.unReadFeed"></ion-icon>
         <ion-icon name="notifications"
-        *ngIf="(activity | async)?.unReadFeed !==0"></ion-icon>
+        *ngIf="(activity | async)?.unReadFeed > 0"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>

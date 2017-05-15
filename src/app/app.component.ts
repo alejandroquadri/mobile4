@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
@@ -18,6 +18,7 @@ import { LoginPage } from '../pages/login/login';
 })
 export class MyApp {
   rootPage: any;
+  connected = true;
   first = true;
 
   constructor(
@@ -28,7 +29,8 @@ export class MyApp {
     public keyboard: Keyboard,
     public authData: AuthData,
     public profileData: ProfileData,
-    public presenceService: PresenceService
+    public presenceService: PresenceService,
+    public toastCtrl: ToastController,
   ) {
     this.platform.ready().then(() => {
       console.log('platform ready');
@@ -42,6 +44,7 @@ export class MyApp {
               if (this.first) { 
                 statusBar.styleDefault();
                 splashScreen.hide();
+                this.first = false;
               }
             }
           })
@@ -52,6 +55,13 @@ export class MyApp {
 
       this.presenceService.connected.subscribe( con => {
         console.log('is connected', con);
+        if (!con) {
+          this.presentToast('connexion perdida');
+          this.connected = false;
+        }
+        if( con && !this.connected) {
+          this.presentToast('connexion recuperada');
+        }
       })
       
       keyboard.onKeyboardShow().subscribe(() => {
@@ -63,5 +73,13 @@ export class MyApp {
       });
     })
 
+  }
+
+  presentToast(mes) {
+    let toast = this.toastCtrl.create({
+      message: mes,
+      duration: 3000
+    });
+    toast.present();
   }
 }

@@ -5,8 +5,7 @@ import { ChatPage } from '../chat/chat';
 import { MePage } from '../me/me';
 import { ConfigPage } from '../config/config';
 
-import { ChatService } from '../../providers/chat-service';
-import { ProfileData } from '../../providers/profile-data';
+import { ChatService, ProfileData, PresenceService } from '../../providers';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -24,7 +23,8 @@ export class TabsPage {
 
   constructor(
   	public chatService: ChatService,
-  	public profileData: ProfileData
+  	public profileData: ProfileData,
+    public presenceService: PresenceService
   ) {}
 
   ionViewDidLoad() {

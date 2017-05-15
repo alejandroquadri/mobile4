@@ -41,19 +41,18 @@ export class DiaryEntryComponent {
 
     diaryImageObs.subscribe( (img: any) => {
       if (img !=='cancelled') {
-        this.diaryData.pushEntry({
-          state: 'pending',
-          order: this.mealInput.order, 
-          meal: this.mealInput.meal,
-          localImages: [img.localImage]
-        }, day)
-        .then( ret => {
-          key = ret.key;
-          this.camera.toBlob(img.file);
-          this.text().then(text => {
-            if( text !== "") {
-              this.diaryData.updateList({text: text}, key, day)
-            }
+        this.text().then(text => {
+          let form = {
+            state: 'pending',
+            order: this.mealInput.order, 
+            meal: this.mealInput.meal,
+            localImages: [img.localImage]
+          }
+          if( text !== "") { form['text'] = text;}
+          this.diaryData.pushEntry(form, day)
+          .then( ret => {
+            key = ret.key;
+            this.camera.toBlob(img.file);
           });
         });
       }

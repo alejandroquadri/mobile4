@@ -1,16 +1,17 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, Input} from '@angular/core';
 
 @Component({
   selector: 'elastic-textarea',
-  inputs: ['placeholder', 'lineHeight'],
+  // inputs: ['placeholder', 'lineHeight'],
   template:
-  `
+  `{{ _lineHeight }}
   <ion-textarea class="textArea" #ionTxtArea
     placeholder='{{placeholder}}'
     [(ngModel)]="content"
     (ngModelChange)='onChange($event)'>
   </ion-textarea>
   `,
+  // templateUrl:'./elastic-text-area.component.html',
   styles: [`
     .textArea {
       background-color: white;
@@ -18,40 +19,50 @@ import {Component, ViewChild} from '@angular/core';
     }
     
     textarea {
-      height: 22px;
-      padding-left: 1vh;
-      padding-top: 0.5vh;
-      margin-top: 1vh;
-      margin-bottom: 1vh;
-      margin-left: 8px;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+      margin-left: 0.8rem;
     }
   `]
 })
 
-export class ElasticTextarea {
+// @Component({
+//   selector: 'week-calendar',
+//   templateUrl: 'week-calendar.html'
+// })
+export class ChatUiTextCompnent {
 
   content;
-  lineHeight;
   txtArea;
+  viewInit = false;
   @ViewChild('ionTxtArea') ionTxtArea;
+  @Input() placeholder;
+  @Input() lineHeight;
 
   constructor() {
     this.content = "";
-    this.lineHeight = "22px";
+    // this.lineHeight = "26px";
   }
 
   ngAfterViewInit(){
     this.txtArea = this.ionTxtArea._elementRef.nativeElement.children[0];
     this.txtArea.style.height = this.lineHeight + "px";
+    this.viewInit = true;
   }
 
   onChange(newValue){
     this.txtArea.style.height = this.lineHeight + "px";
     this.txtArea.style.height =  this.txtArea.scrollHeight + "px";
+    console.log('cambio', newValue, this.txtArea.style.height);
   }
 
   clearInput(){
     this.content = "";
     this.txtArea.style.height = this.lineHeight + "px";
   }
+
 }

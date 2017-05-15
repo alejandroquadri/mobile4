@@ -1,0 +1,6 @@
+{{ _lineHeight }}
+<ion-textarea class="textArea" #ionTxtArea
+  placeholder='{{placeholder}}'
+  [(ngModel)]="content"
+  (ngModelChange)='onChange($event)'>
+</ion-textarea>
