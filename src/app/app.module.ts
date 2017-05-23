@@ -107,11 +107,11 @@ const myFirebaseAuthConfig = {
     ElasticModule,
     IonicModule.forRoot(MyApp, {
       pageTransition: 'md-transition',
-      // ios: {
-      //     scrollAssist: false, 
-      //     autoFocusAssist: false,
-      //     inputBlurring: false
-      //   }
+      ios: {
+          scrollAssist: false, 
+          autoFocusAssist: false,
+          inputBlurring: false
+        }
     }), // esto es para que junto tappable no tarde unos segundos en hacer click
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
   ],

@@ -65,7 +65,10 @@ export class ChatPage {
   ionViewDidEnter(){
     this.profileObject = this.profileData.current;
     this.chatService.mesRead();
-
+    if (this.platform.is('ios')) {
+      console.log('es ios agrega listeners');
+      this.addKeyboardListeners()
+    }
     this.keyboard.disableScroll(true);
   }
 
@@ -77,10 +80,6 @@ export class ChatPage {
   }
 
   addKeyboardStyle() {
-    if (this.platform.is('ios')) {
-      console.log('es ios agrega listeners');
-      this.addKeyboardListeners()
-    }
 
     this.scrollContentElement = this.content.getScrollElement();
     this.footerElement = document.getElementsByTagName('page-chat')[0].getElementsByTagName('ion-footer')[0];
