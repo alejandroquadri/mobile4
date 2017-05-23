@@ -14,6 +14,9 @@ import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { Keyboard } from '@ionic-native/keyboard';
 
+// plugin 3eros
+import { ElasticModule } from 'angular2-elastic';
+
 // paginas importadas
 import { DiaryPage } from '../pages/diary/diary';
 import { ChatPage } from '../pages/chat/chat';
@@ -32,8 +35,8 @@ import { ActivityPage } from '../pages/activity/activity';
 // Components
 import { WeekCalendarComponent } from '../pages/diary/week-calendar/week-calendar';
 import { DiaryEntryComponent } from '../pages/diary/diary-entry/diary-entry';
-import { ChatUiTextCompnent } from '../shared/components/elastic-text-area/elastic-text-area.component';
-import { ChatUIInput }  from '../components/chat-ui-input/chat-ui-input'
+import { ChatUIInput }  from '../components/chat-ui-input/chat-ui-input';
+import { Autofocuser } from '../components/keyboard/keyboard';
 
 // Servicios
 import { AuthData, 
@@ -88,8 +91,8 @@ const myFirebaseAuthConfig = {
     ActivityPage,
     WeekCalendarComponent,
     DiaryEntryComponent,
-    ChatUiTextCompnent,
     ChatUIInput,
+    Autofocuser,
     SortPipe,
     SortAddPipe,
     ObjectToArrayPipe,
@@ -101,8 +104,14 @@ const myFirebaseAuthConfig = {
   imports: [
     BrowserModule,
     HttpModule,
+    ElasticModule,
     IonicModule.forRoot(MyApp, {
-      pageTransition: 'md-transition'
+      pageTransition: 'md-transition',
+      // ios: {
+      //     scrollAssist: false, 
+      //     autoFocusAssist: false,
+      //     inputBlurring: false
+      //   }
     }), // esto es para que junto tappable no tarde unos segundos en hacer click
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
   ],
@@ -141,6 +150,7 @@ const myFirebaseAuthConfig = {
     WeightService,
     ActivityService,
     PresenceService,
+    Autofocuser,
     SortPipe,
     SortAddPipe,
     ObjectToArrayPipe,

@@ -1,17 +1,23 @@
 chat-ui-input {
 	
 	.textArea {
-    background-color: white;
+    height: 20px;
+    border-color: lightgrey;
+    background-color: #f8f8f8;
     border-radius: 10px;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
     margin-left: 0.8rem;
     margin-right: 1rem;
-    width: auto;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    width: 90%;
   }
 
   .text-input-ios {

@@ -1,27 +1,26 @@
-{{ _lineHeight }}
 <ion-toolbar color="ligther">
 
-	<!-- <ion-grid> -->
-		<!-- <ion-row align-items-center> -->
-			<!-- <ion-col col-9> -->
-				<ion-textarea class="textArea" #ionTxtArea
-				  placeholder='{{placeholder}}'
-				  [(ngModel)]="content"
-				  (ngModelChange)='onChange($event)'>
-				</ion-textarea>
-			<!-- </ion-col> -->
+<!-- 	<ion-textarea class="textArea" #ionTxtArea
+	  placeholder='{{placeholder}}'
+	  (keyup.enter)="send()"
+	  [(ngModel)]="content"
+	  (ngModelChange)='onChange($event)'>
+	</ion-textarea>
+ -->
 
-			<!-- <ion-col col-3> -->
-				<ion-buttons right clear>
-				  <button (click)="send()" ion-button color="primary" clear icon-right>
-				  	Enviar
-				    <ion-icon name="send"></ion-icon>
-				  </button>
-				</ion-buttons>
-			<!-- </ion-col> -->
-		<!-- </ion-row> -->
+ 	<textarea spellcheck="true" autoComplete="true" autocorrect="true" rows="1" fz-elastic class="textArea" #ionTxtArea 
+	  placeholder='{{placeholder}}'
+	  (keyup.enter)="send()"
+	  [(ngModel)]="content"
+	  (ngModelChange)='onChange($event)'>
+	</textarea>
 
-	<!-- </ion-grid> -->
-	
+	<ion-buttons right clear>
+	  <!-- <button (click)="send()" (touchstart)="touchSendButton($event)" ion-button color="primary" clear icon-right> -->
+	  <button (touchstart)="touchSendButton($event)" ion-button color="primary" clear icon-right>
+	  	Enviar
+	    <ion-icon name="send"></ion-icon>
+	  </button>
+	</ion-buttons>
 	
 </ion-toolbar>

@@ -8,14 +8,16 @@
 </ion-header>
 
 
-<ion-content padding class="chatPage" #chatUi>
+<ion-content class="chatPage" #chatUi 
+(tap)="contentMouseDown($event)" fixed scrollDownOnLoad="true"
+ionScrollEnd="hideKeybaord()">
 
   <ion-list no-lines>
     <ion-item *ngFor="let msg of chat | async" >
       <div class="chatBubble">
-        <img class="profile-pic {{ msg.uid === profileObject.$key? 'left':'right' }}" 
+        <!-- <img class="profile-pic {{ msg.uid === profileObject.$key? 'left':'right' }}" 
         [src]="msg.uid === profileObject.$key? profileObject.url: coachProfile?.avatar "
-        >
+        > -->
         <div class="chat-bubble {{ msg.uid === profileObject.$key? 'left':'right' }}">
           <div class="message">{{ msg.content }}</div>
           <div class="message-detail">
@@ -29,16 +31,28 @@
 
 </ion-content>
 
-<ion-footer class="chatPageFooter">
-  <chat-ui-input (sendMes)="send($event)" tappable></chat-ui-input>
-</ion-footer>
+<ion-footer class="chatPageFooter" (touchstart)="footerTouchStart($event)">
 
-<!-- <ion-toolbar color="ligther"> 
-    <chat-ui-input #txtChat [lineHeight]="lineHeight" tappable></chat-ui-input>
-    <ion-buttons right>
-      <button (click)="send()" ion-button color="primary">
+  <ion-toolbar>
+
+    <textarea spellcheck="true" autoComplete="true" autocorrect="true" rows="1" fz-elastic class="textArea" #ionTxtArea 
+      placeholder="{{placeholder}}"
+      (touchstart) = "textAreaFocus()"
+      (keyup.shift.enter) = "send()"
+      [(ngModel)]="mesContent"
+      (ngModelChange)='textAreaChange()'>
+    </textarea>
+
+
+
+    <ion-buttons right clear>
+      <button [disabled]="!content" (touchstart)="touchSendButton($event)" ion-button color="primary" clear icon-right>
+        Enviar
         <ion-icon name="send"></ion-icon>
       </button>
-  </ion-buttons>
+    </ion-buttons>
 
-  </ion-toolbar> -->
+  </ion-toolbar>
+
+</ion-footer>
+

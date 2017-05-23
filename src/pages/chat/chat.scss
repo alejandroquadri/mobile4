@@ -48,7 +48,8 @@ page-chat {
   .chat-bubble.left {
     background-color: map-get($chat-bubble, background-left);
     float: left;
-    margin-left: 45px;
+    // margin-left: 45px;
+    margin-left: 5px;
   }
 
   .chat-bubble.left:before {
@@ -61,7 +62,8 @@ page-chat {
     background-color: map-get($chat-bubble, background-right);
     color: #000;
     float: right;
-    margin-right: 45px;
+    // margin-right: 45px;
+    margin-right: 5px;
   }
 
   .chat-bubble.right:before {
@@ -82,15 +84,40 @@ page-chat {
 	  }
 	}
 
-  .chatPageFooter {
-	  .toolbar-background {
-	    background: map-get($colors, background-color);
-	  }
-	}
-
   // esto para que no quede el imput debajo del teclado
 	.input-cover {
 	  position: static;
 	}
+
+  .textArea {
+    border-color: lightgrey;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 0.8rem;
+    margin-right: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    width: 90%;
+  }
+
+  .text-input-ios {
+    margin: 0px;
+  }
+
+  .toolbar-background {
+    background: map-get($colors, background-color);
+  }
+
+  .footerNoTab {
+    bottom: 0 !important;
+  }
 
 }

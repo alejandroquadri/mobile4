@@ -8,7 +8,6 @@ import { AngularFire } from 'angularfire2';
 
 import { AuthData, ProfileData, PresenceService } from '../providers';
 
-
 // paginas
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
@@ -64,13 +63,13 @@ export class MyApp {
         }
       })
       
-      keyboard.onKeyboardShow().subscribe(() => {
-        document.body.classList.add('keyboard-is-open');
-      });
+      // keyboard.onKeyboardShow().subscribe(() => {
+      //   document.body.classList.add('keyboard-is-open');
+      // });
 
-      keyboard.onKeyboardHide().subscribe(() => {
-        document.body.classList.remove('keyboard-is-open');
-      });
+      // keyboard.onKeyboardHide().subscribe(() => {
+      //   document.body.classList.remove('keyboard-is-open');
+      // });
     })
 
   }
