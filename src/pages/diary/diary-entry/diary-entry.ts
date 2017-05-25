@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { AlertController } from 'ionic-angular';
+import { AlertController, ModalController } from 'ionic-angular';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/skip';
 import {AngularFire} from 'angularfire2';
@@ -8,6 +8,9 @@ import {AngularFire} from 'angularfire2';
 import { CameraService } from '../../../providers/camera-service';
 import { DiaryData } from '../../../providers/diary-data';
 import { ActivityService } from '../../../providers/activity.service'
+
+// paginas
+import { MealTextPage } from '../../meal-text/meal-text';
 
 @Component({
   selector: 'diary-entry',
@@ -26,6 +29,7 @@ export class DiaryEntryComponent {
     public diaryData: DiaryData,
     public activityService: ActivityService,
     public af: AngularFire,
+    public modalCtrl: ModalController
   ) {}
 
   goToDetail(meal) {
@@ -46,7 +50,8 @@ export class DiaryEntryComponent {
             state: 'pending',
             order: this.mealInput.order, 
             meal: this.mealInput.meal,
-            localImages: [img.localImage]
+            localImages: [img.localImage],
+            date: this.day.format("YYYYMMDD")
           }
           if( text !== "") { form['text'] = text;}
           this.diaryData.pushEntry(form, day)
@@ -59,6 +64,7 @@ export class DiaryEntryComponent {
     });
 
     uploadObs.subscribe( url => {
+      console.log('segunda');
       this.diaryData.updateList({webImages:[url]}, key, day)
       .then( () => {
         this.activityService.updatePendingReviewCount()
@@ -67,17 +73,48 @@ export class DiaryEntryComponent {
     });
   }
 
-  newText() {
-    this.text().then(text => {
-      console.log(text);
-      this.diaryData.pushEntry({
-          state: 'pending',
-          order: this.mealInput.order, 
-          meal: this.mealInput.meal,
-          text: text
-        }, this.day.format("YYYYMMDD"))
-      .then( () => this.activityService.updatePendingReviewCount())
+  // newText() {
+  //   this.modalText().then(
+  //     text => {
+  //     console.log(text);
+  //     // this.diaryData.pushEntry({
+  //     //     state: 'pending',
+  //     //     order: this.mealInput.order, 
+  //     //     meal: this.mealInput.meal,
+  //     //     text: text
+  //     //   }, this.day.format("YYYYMMDD"))
+  //     // .then( () => this.activityService.updatePendingReviewCount())
+  //     })
+  //   .catch( err => console.log(err)) 
+
+  // }
+
+  addPicture2() {
+    this.camera.takePicture('diary', 30);
+    let diaryImageObs = this.camera.imageData.take(1);
+
+    diaryImageObs.subscribe( (img: any) => {
+      if (img !=='cancelled') {
+        let form = {
+            state: 'pending',
+            order: this.mealInput.order, 
+            meal: this.mealInput.meal,
+            localImages: [img.localImage],
+            date: this.day.format("YYYYMMDD")
+          }
+        this.modalText({form: form, img: img.file})
+      }
     });
+  }
+
+  newText2() {
+    let form = {
+        state: 'pending',
+        order: this.mealInput.order, 
+        meal: this.mealInput.meal,
+        date: this.day.format("YYYYMMDD")
+      }
+    this.modalText({form: form})
   }
 
   private text (){
@@ -100,6 +137,11 @@ export class DiaryEntryComponent {
     });
     alert.present();
     });
+  }
+
+  modalText(form: any) {
+    let modal = this.modalCtrl.create(MealTextPage, form); 
+    modal.present()
   }
 
 }

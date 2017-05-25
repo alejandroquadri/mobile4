@@ -31,6 +31,7 @@ import { ProgressPage } from '../pages/progress/progress';
 import { CoachPage } from '../pages/coach/coach';
 import { MealDetailPage } from '../pages/meal-detail/meal-detail';
 import { ActivityPage } from '../pages/activity/activity';
+import { MealTextPage } from '../pages/meal-text/meal-text';
 
 // Components
 import { WeekCalendarComponent } from '../pages/diary/week-calendar/week-calendar';
@@ -89,6 +90,7 @@ const myFirebaseAuthConfig = {
     CoachPage,
     MealDetailPage,
     ActivityPage,
+    MealTextPage,
     WeekCalendarComponent,
     DiaryEntryComponent,
     ChatUIInput,
@@ -131,6 +133,7 @@ const myFirebaseAuthConfig = {
     CoachPage,
     MealDetailPage,
     ActivityPage,
+    MealTextPage,
     WeekCalendarComponent,
     DiaryEntryComponent,
     ChatUIInput

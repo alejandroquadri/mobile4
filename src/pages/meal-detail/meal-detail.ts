@@ -1,11 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import * as moment from 'moment';
 
 import { DiaryData } from '../../providers/diary-data';
 import { ProfileData } from '../../providers/profile-data';
 import { CameraService } from '../../providers/camera-service';
+
+// paginas
+import { MealTextPage } from '../meal-text/meal-text';
+
 
 @Component({
   selector: 'page-meal-detail',
@@ -23,6 +27,7 @@ export class MealDetailPage {
   constructor(
   	public navCtrl: NavController, 
   	public navParams: NavParams,
+    public modalCtrl: ModalController,
   	public diaryData: DiaryData,
   	public profileData: ProfileData,
     public alertCtrl: AlertController,
@@ -130,6 +135,16 @@ export class MealDetailPage {
 	  	},
 	  	err => console.log('error al enviar mensaje', err)
   	);
+  }
+
+  editText2() {
+    this.modalText({edit: this.mealData});
+  }
+
+  modalText(form: any) {
+    console.log(form);
+    let modal = this.modalCtrl.create(MealTextPage, form); 
+    modal.present()
   }
 
   // send(mes) {

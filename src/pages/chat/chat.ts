@@ -48,32 +48,29 @@ export class ChatPage {
     public platform: Platform,
     private keyboard: Keyboard,
     public renderer: Renderer
-) {}
-
-  ionViewDidLoad() {
+) {
     this.profileObject = this.profileData.current;
     this.profileData.getCoachProfileOnce()
     .then( coach => {
       this.coachProfile = coach.val()
     })
     this.chat = this.chatService.getChat(this.profileObject.coach , this.profileObject.$key)
+  }
 
+  ionViewDidLoad() {
     this.addKeyboardStyle();
-    
   }
 
   ionViewDidEnter(){
     this.profileObject = this.profileData.current;
     this.chatService.mesRead();
     if (this.platform.is('ios')) {
-      console.log('es ios agrega listeners');
       this.addKeyboardListeners()
     }
     this.keyboard.disableScroll(true);
   }
 
   ionViewDidLeave() {
-    // console.log('salio');
     this.chatService.offCheckRead();
     this.removeKeyboardListeners();
     this.keyboard.disableScroll(false);
@@ -87,10 +84,10 @@ export class ChatPage {
     this.inputElement = document.getElementsByTagName('page-chat')[0].getElementsByTagName('textarea')[0];
     this.tabBar = document.getElementsByClassName('tabbar')[0]
    
-    console.log(this.scrollContentElement);
-    console.log(this.inputElement);
-    console.log(this.footerElement);
-    console.log(this.tabBar);
+    // console.log(this.scrollContentElement);
+    // console.log(this.inputElement);
+    // console.log(this.footerElement);
+    // console.log(this.tabBar);
 
     this.footerElement.style.cssText = this.footerElement.style.cssText +
       "transition: all " + this.millis + "ms; -webkit-transition: all " +
@@ -112,21 +109,20 @@ export class ChatPage {
     this.keyboardHideSub = this.keyboard.onKeyboardHide().subscribe(() => {
       let newHeight = this.textareaHeight - this.initialTextAreaHeight + 44 + this.tabsHeight;
       let marginBottom = newHeight + 'px';
-      console.log('marginBottom', marginBottom, this.textareaHeight, this.initialTextAreaHeight, 44);
+      // console.log('marginBottom', marginBottom, this.textareaHeight, this.initialTextAreaHeight, 44);
 
       this.renderer.setElementStyle(this.tabBar, 'display', 'flex');
       this.renderer.setElementClass(this.footerElement, 'footerNoTab', false);
 
       this.renderer.setElementStyle(this.scrollContentElement, 'marginBottom', marginBottom);
-      // this.renderer.setElementStyle(this.footerElement, 'marginBottom', this.tabsHeight)
       this.renderer.setElementStyle(this.footerElement, 'marginBottom', '0px')
     });
 
     this.keybaordShowSub = this.keyboard.onKeyboardShow().subscribe((e) => {
 
-      let newHeight = (e['keyboardHeight']) + this.textareaHeight - this.initialTextAreaHeight //- this.tabsHeight;
+      let newHeight = (e['keyboardHeight']) + this.textareaHeight - this.initialTextAreaHeight;
       let marginBottom = newHeight + 44 + 'px';
-      console.log('marginBottom', marginBottom, (e['keyboardHeight']), this.textareaHeight, this.initialTextAreaHeight, 44);
+      // console.log('marginBottom', marginBottom, (e['keyboardHeight']), this.textareaHeight, this.initialTextAreaHeight, 44);
 
       this.renderer.setElementStyle(this.tabBar, 'display', 'none');
       this.renderer.setElementClass(this.footerElement, 'footerNoTab', true);
@@ -139,16 +135,9 @@ export class ChatPage {
   }
 
   removeKeyboardListeners() {
-    console.log('salen los listeners');
+    // console.log('salen los listeners');
     this.keyboardHideSub.unsubscribe();
     this.keybaordShowSub.unsubscribe();
-  }
-
-  updateScroll(from, timeout) {
-    setTimeout(() => {
-      console.log('updating scroll -->', from)
-      this.content.scrollToBottom();
-    }, timeout);
   }
 
   send() {
@@ -181,15 +170,15 @@ export class ChatPage {
   }
 
   footerTouchStart(event) {
-    console.log('footerTouchStart: ', event.type, event.target.localName, '...')
+    // console.log('footerTouchStart: ', event.type, event.target.localName, '...')
     if (event.target.localName !== "textarea") {
       event.preventDefault();
-      console.log('preventing')
+      // console.log('preventing')
     }
   }
 
   contentMouseDown(event) {
-    console.log('blurring input element :- > event type:', event.type);
+    // console.log('blurring input element :- > event type:', event.type);
     this.inputElement.blur();
   }
 
@@ -209,13 +198,16 @@ export class ChatPage {
   }
 
   touchSendButton(event: Event) {
-    console.log('touchSendButton, event type:', event.type);
+    // console.log('touchSendButton, event type:', event.type);
     event.preventDefault();
-    this.send();;
+    this.send();
   }
 
-  textAreaFocus() {
-    console.log('hice focus en el textara');
+  updateScroll(from, timeout) {
+    setTimeout(() => {
+      // console.log('updating scroll -->', from)
+      this.content.scrollToBottom();
+    }, timeout);
   }
 
 }

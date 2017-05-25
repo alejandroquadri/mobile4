@@ -38,13 +38,14 @@
     
     <!-- ** cuando no hay nada, ni imagen, ni texto agregado -->
     <div *ngIf="!mealInput.localImages && !mealInput.text" class="newMeal">
-      <div class="camera" (click)="addPicture()" tappable>
+      <div class="camera" (click)="addPicture2()" tappable>
         <ion-icon name="camera"></ion-icon>
       </div>
     </div>
     
     <!-- ** aparece cuando no hay foto ni texto -->
-    <ion-card-content (click)="newText()" tappable *ngIf="!(mealInput.localImages || mealInput.text)">
+    <!-- <ion-card-content (click)="newText()" tappable *ngIf="!(mealInput.localImages || mealInput.text)"> -->
+    <ion-card-content (click)="newText2()" tappable *ngIf="!(mealInput.localImages || mealInput.text)">
       <span><ion-icon name="create"></ion-icon> ¿Que comiste?</span> 
     </ion-card-content>
   

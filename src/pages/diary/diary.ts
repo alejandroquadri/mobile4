@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, ModalController } from 'ionic-angular';
+import { NavController, LoadingController, ModalController, App } from 'ionic-angular';
 import * as moment from 'moment';
 
 // pages
@@ -32,7 +32,8 @@ export class DiaryPage {
     public activityService: ActivityService,
     private sortAddPipe: SortAddPipe,
     private objectToArray: ObjectToArrayPipe,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public app: App
   ) {
     this.getData();
     this.getActivity();
@@ -68,10 +69,11 @@ export class DiaryPage {
   detail(meal: any) {
     console.log(meal);
     meal['date'] = this.day.format("YYYYMMDD")
-    this.navCtrl.push(MealDetailPage, meal);
+    this.app.getRootNav().push(MealDetailPage, meal);
+    // estoy llamando getRootNav devuelve NavController lo que me permite navegar desde ahi sin mostrar las tabs
   }
 
-  private dateDiary(){
+  private dateDiary() {
     let dayDiary = this.completeDiary[this.day.format("YYYYMMDD")]
     if (!dayDiary) { dayDiary = []}
     let primero  = this.objectToArray.transform(dayDiary);

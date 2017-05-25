@@ -37,7 +37,6 @@ ionScrollEnd="hideKeybaord()">
 
     <textarea spellcheck="true" autoComplete="true" autocorrect="true" rows="1" fz-elastic class="textArea" #ionTxtArea 
       placeholder="{{placeholder}}"
-      (touchstart) = "textAreaFocus()"
       (keyup.shift.enter) = "send()"
       [(ngModel)]="mesContent"
       (ngModelChange)='textAreaChange()'>

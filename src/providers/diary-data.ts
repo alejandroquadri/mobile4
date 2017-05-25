@@ -46,7 +46,7 @@ export class DiaryData {
     return this.af.database.object(`/diary/${this.authData.fireAuth.uid}/${day}/${array}`)
   }
 
-  getMeal2 (day, array) {
+  getMeal2(day, array) {
     this.diaryObs.subscribe( diary => {
       return diary[this.authData.fireAuth.uid][day][array];
     })
