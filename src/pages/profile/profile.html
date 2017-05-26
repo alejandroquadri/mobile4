@@ -3,24 +3,22 @@
   <ion-navbar>
     <ion-title>Perfil</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="logOut()">Salir
-        <ion-icon name="exit"></ion-icon>
-      </button>
+      <button ion-button icon-only (click)="updateUser()">Guardar</button>
     </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
-  <div padding>
+  <div padding tappable>
     <img [src]="profileForm.localPath || avatar" (click)="updateAvatar()">
   </div>
 
-  <form padding (ngSubmit)="updateUser()" #form="ngForm" novalidate>
+  <form (ngSubmit)="updateUser()" #form="ngForm" novalidate>
 
-    <ion-list>
+    <ion-item-group>
 
       <ion-item>
         <ion-label fixed>Nombre</ion-label>
@@ -48,17 +46,32 @@
 
       <ion-item>
         <ion-label fixed>Bio</ion-label>
-        <ion-textarea [(ngModel)]="profileForm.bio"  name="bio" type="textarea" >
+        <ion-textarea  fz-elastic [(ngModel)]="profileForm.bio" rows=1 name="bio" type="textarea" >
         </ion-textarea>
       </ion-item>
+    </ion-item-group>
+    
+    <ion-item-group>
+      <ion-item-divider color="light">Peso</ion-item-divider>
+      <ion-item>
+        <ion-label fixed>Inicial</ion-label>
+        <ion-input [(ngModel)]="profileForm.initialWeight" name="initialWeight" type="number">
+        </ion-input>
+      </ion-item>
 
-    </ion-list>
+      <ion-item>
+        <ion-label fixed>Objetivo</ion-label>
+        <ion-input [(ngModel)]="profileForm.objectiveWeight" name="objectiveWeight" type="number">
+        </ion-input>
+      </ion-item>
+    </ion-item-group>
 
-    <div padding>
-      <button ion-button block type="submit">Guardar</button>
-    </div>
+    </form>
 
-  </form>
+    <button ion-button full outline icon-right color="danger" class="logout" (click)="logOut()">
+      Salir
+      <ion-icon name="log-out"></ion-icon>
+    </button>
 
 
 </ion-content>

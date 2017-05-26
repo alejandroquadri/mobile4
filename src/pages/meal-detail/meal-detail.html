@@ -7,7 +7,8 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content (tap)="contentMouseDown($event)" fixed scrollDownOnLoad="true"
+ionScrollEnd="hideKeybaord()">
 
 	<div class="detail">
 		
@@ -65,7 +66,7 @@
           <ion-note *ngIf="(meal | async).localImages && (meal | async).text">{{ (meal | async).text }}</ion-note>
         </ion-col>
         <ion-col col-2 text-center>
-          <button ion-button icon-center clear small (click)="editText2()">
+          <button ion-button icon-center clear small (click)="editText()">
              <span icon-center ion-text style="font-size: 3vh;"><ion-icon name="create"></ion-icon></span>
           </button>
         </ion-col>
@@ -83,17 +84,24 @@
 
 </ion-content>
 
- <ion-footer>
+ <ion-footer (touchstart)="footerTouchStart($event)">
 
-  <!-- <ion-toolbar color="ligther"> 
-    <elastic-textarea #txtChat lineHeight="22" tappable></elastic-textarea>
-    <ion-buttons right>
-      <button (click)="sendReview()" ion-button color="primary" class="enviar">
-        <ion-icon name="send"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar> -->
+   <ion-toolbar>
 
-  <chat-ui-input (sendMes)="sendReview($event)" tappable></chat-ui-input>
+      <textarea spellcheck="true" autoComplete="true" autocorrect="true" rows="1" fz-elastic class="textArea" #ionTxtArea 
+        placeholder="{{placeholder}}"
+        (keyup.shift.enter) = "sendReview()"
+        [(ngModel)]="message"
+        (ngModelChange)='textAreaChange()'>
+      </textarea>
+
+      <ion-buttons right clear>
+        <button [disabled]="!message" (click)="sendReview()" ion-button color="primary" clear icon-right>
+          Enviar
+          <ion-icon name="send"></ion-icon>
+        </button>
+      </ion-buttons>
+
+    </ion-toolbar>
 
 </ion-footer>

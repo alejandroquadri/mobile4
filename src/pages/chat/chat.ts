@@ -68,6 +68,7 @@ export class ChatPage {
       this.addKeyboardListeners()
     }
     this.keyboard.disableScroll(true);
+    this.updateScroll('enter', 500)
   }
 
   ionViewDidLeave() {
@@ -101,7 +102,7 @@ export class ChatPage {
     this.footerHeight = this.footerElement.offsetHeight;
     this.initialTextAreaHeight = this.textareaHeight;
 
-    this.updateScroll('load', 500)
+    // this.updateScroll('load', 500)
   }
 
   addKeyboardListeners() {

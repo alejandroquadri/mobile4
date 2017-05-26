@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, App } from 'ionic-angular';
 
 import { DiaryData, ActivityService } from '../../providers';
 import { MealDetailPage } from '../meal-detail/meal-detail';
@@ -23,6 +23,7 @@ export class ActivityPage {
   	public navCtrl: NavController,
   	public navParams: NavParams,
   	public viewCtrl: ViewController,
+    public app: App,
   	public diaryData: DiaryData,
   	public activityService: ActivityService,
   	private objectToArray: ObjectToArrayPipe
@@ -46,6 +47,7 @@ export class ActivityPage {
   		meal['date'] = date;
   		meal['$key'] = mealkey;
 	    this.navCtrl.push(MealDetailPage, meal);
+      // this.app.getRootNav().push(MealDetailPage, meal);
   	})
   	if(isNew) { this.activityService.markAsSeenReview(feedKey); }
   }

@@ -56,11 +56,15 @@ export class ProfilePage {
       bio : this.profileForm.bio || '',
       displayName: this.profileForm.displayName || '',
       birthDate: this.profileForm.birthDate || '',
+      initialWeight: this.profileForm.initialWeight || '',
+      objectiveWeight: this.profileForm.objectiveWeight || ''
     }
     console.log('form a actualizar', updateProfile);
     this.profileData.updateProfileFan(updateProfile)
     .then( 
-      ret => console.log('actualizado', ret),
+      ret => {
+        console.log('actualizado', ret);
+      },
       err => console.log('error', err)
     );
 
@@ -71,25 +75,29 @@ export class ProfilePage {
         (err) => console.log('error', err)
       )
     }
+    this.navCtrl.pop();
   }
 
   updateAvatar() {
-    this.camera.takePicture('profile');
 
-    let localImageObs = this.camera.imageData.take(1);
-    let webImageObs = this.camera.imageData.take(2).skip(1);
+    this.camera.takePicture('profile', 30);
+    let diaryImageObsFirst = this.camera.imageData.take(1);
+    let uploadObs = this.camera.uploadData.take(1);
 
-    localImageObs.subscribe(
+    diaryImageObsFirst.subscribe(
       (imageData:any) => {
-        let form = {localPath: imageData}
-        this.profileData.updateProfileFan(form);
+        let form = {localPath: imageData.localImage}
+        this.profileData.updateProfileFan(form)
+        .then( ret => {
+          this.camera.toBlob(imageData.file)
+        })
       },
       err => console.log('error en localImageObs second', err),
       () => console.log('termino localImageObs second')
     )
 
-    webImageObs.subscribe(
-      (imageData:any) => {
+    uploadObs.subscribe( 
+      (imageData: string) => {
         let form = {url: imageData}
         this.profileData.updateProfileFan(form);
         this.authData.setProfileData(this.profileForm.displayName || '', imageData)
@@ -102,6 +110,36 @@ export class ProfilePage {
       () => console.log('termino webImageObs second')
     )
   }
+
+    // updateAvatarViejo() {
+  //   this.camera.takePicture('profile');
+
+  //   let localImageObs = this.camera.imageData.take(1);
+  //   let webImageObs = this.camera.imageData.take(2).skip(1);
+
+  //   localImageObs.subscribe(
+  //     (imageData:any) => {
+  //       let form = {localPath: imageData}
+  //       this.profileData.updateProfileFan(form);
+  //     },
+  //     err => console.log('error en localImageObs second', err),
+  //     () => console.log('termino localImageObs second')
+  //   )
+
+  //   webImageObs.subscribe(
+  //     (imageData:any) => {
+  //       let form = {url: imageData}
+  //       this.profileData.updateProfileFan(form);
+  //       this.authData.setProfileData(this.profileForm.displayName || '', imageData)
+  //       .then(
+  //         (ret) => console.log('update exitoso', ret),
+  //         (err) => console.log('error', err)
+  //       )
+  //     },
+  //     err => console.log('error en webImageObs second', err),
+  //     () => console.log('termino webImageObs second')
+  //   )
+  // }
 
 
 }

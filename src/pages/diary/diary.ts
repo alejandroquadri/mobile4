@@ -57,8 +57,9 @@ export class DiaryPage {
   }
 
   presentActivity() {
-    let modal = this.modalCtrl.create(ActivityPage);
-    modal.present()
+    // let modal = this.modalCtrl.create(ActivityPage);
+    // modal.present()
+    this.app.getRootNav().push(ActivityPage);
   }
 
   setDay(day){
