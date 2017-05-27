@@ -102,7 +102,7 @@ export class ChatPage {
     this.footerHeight = this.footerElement.offsetHeight;
     this.initialTextAreaHeight = this.textareaHeight;
 
-    // this.updateScroll('load', 500)
+    this.updateScroll('load', 500)
   }
 
   addKeyboardListeners() {

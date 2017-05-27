@@ -1,0 +1,34 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-title>
+      Registro de peso
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="danger">Cancelar</span>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons end>
+	    <button ion-button (click)="save()">
+        <span ion-text color="primary">Guardar</span>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	
+	<ion-grid>
+		<ion-row align-items-center>
+	    <ion-col col-6 align-items-center>
+	    	<ion-input id="weightInput" class="log" [(ngModel)]="weight" type="number" text-right></ion-input>
+	    </ion-col>
+	    <ion-col col-6 align-items-center><div class="log">kg</div></ion-col>
+	  </ion-row>
+	</ion-grid>
+
+</ion-content>

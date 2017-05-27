@@ -1,11 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import * as moment from 'moment';
 import Chart from 'chart.js';
 
 import { ProfileData } from '../../providers/profile-data';
 import { WeightService } from '../../providers/weight-service';
+
+import { LogWeight } from '../log-weight/log-weight'
 
 
 @Component({
@@ -27,7 +29,8 @@ export class ProgressPage {
   	public navCtrl: NavController,
   	public profileData: ProfileData,
   	public weightService: WeightService,
-  	public alertCtrl: AlertController
+  	public alertCtrl: AlertController,
+    public modalCtrl: ModalController
   ) {
   	
   }
@@ -66,6 +69,21 @@ export class ProgressPage {
       ]
     });
     alert.present();
+  }
+
+  log() {
+    let log = this.modalCtrl.create(LogWeight);
+    log.onDidDismiss(data => {
+      console.log(data);
+      if (data) {
+        this.weightService.push(data.log, moment().format())
+        .then( 
+          ret => console.log('weight logged', ret.key),
+          err => console.log('error', err)
+        );
+      }
+    });
+    log.present();
   }
 
   actualWeight(array) {
