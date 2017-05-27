@@ -105,12 +105,9 @@ export class CameraService {
     this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName)
     .then((success) => {
       // console.log('copio correctamente')
-      let localImage = this.pathForImage(newFileName);
+      // let localImage = this.pathForImage(newFileName);
       // console.log('imagen local', localImage);
-      this.imageDataSubject.next({
-        localImage: localImage,
-        file: newFileName
-      });
+      this.imageDataSubject.next(newFileName);
     }, (err) => {
       console.log('Error en copyFileToLocalDir');
     });
@@ -118,7 +115,7 @@ export class CameraService {
 
   // esta funcion es para poder dar el path correcto de la foto guardadad
   // en el dispositivo
-  private pathForImage(img) {
+  pathForImage(img) {
     // console.log('usa path con esta imagen', img);
     if (img === null) {
       return '';

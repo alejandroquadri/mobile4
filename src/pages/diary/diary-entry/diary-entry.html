@@ -1,3 +1,4 @@
+<!-- src="{{pathForImage(lastImage)}}" -->
 <div *ngIf="mealInput">
   <ion-card>
 
@@ -19,7 +20,8 @@
       </ion-slides> -->
       <ion-slides pager (click)="goToDetail(mealInput)" tappable>
         <ion-slide *ngFor="let image of mealInput.localImages">
-          <img [src]="image" class="slide-image"/>
+          <!-- <img [src]="image" class="slide-image"/> -->
+          <img [src]="pathForImage(image)" class="slide-image"/>
         </ion-slide>
       </ion-slides>
     </div>
@@ -38,7 +40,7 @@
     
     <!-- ** cuando no hay nada, ni imagen, ni texto agregado -->
     <div *ngIf="!mealInput.localImages && !mealInput.text" class="newMeal">
-      <div class="camera" (click)="addPicture2()" tappable>
+      <div class="camera" (click)="addPicture()" tappable>
         <ion-icon name="camera"></ion-icon>
       </div>
     </div>
@@ -73,14 +75,16 @@
          </span>
        </ion-col>
        <ion-col col-9 align-self-center>
-         <button ion-button icon-left clear small>
+         <!-- <button ion-button icon-left clear small> -->
+         <span>
            <ion-icon name="text" class="noReview"
            [ngClass] = "{'review': mealInput.reviews }"></ion-icon>
             <div>
              <span *ngIf="mealInput.reviews"> {{ mealInput.reviews | countKeys }} comentarios</span>
              <span *ngIf="!mealInput.reviews">no hay comentarios</span>
             </div>
-         </button>
+         <!-- </button> -->
+         </span>
        </ion-col> 
      </ion-row>
     </div>

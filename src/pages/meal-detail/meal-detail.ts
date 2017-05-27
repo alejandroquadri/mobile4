@@ -91,12 +91,12 @@ export class MealDetailPage {
 
     diaryImageObsFirst.subscribe(
       (imageData:any) => {
-        localImages.push(imageData.localImage);
+        localImages.push(imageData);
         this.diaryData.updateList({localImages: localImages}, this.mealParams.$key,this.mealParams.date)
         .then( 
           ret => {
             console.log('local image saved', ret);
-            this.camera.toBlob(imageData.file);
+            this.camera.toBlob(imageData);
           },
           err => console.log('error', err)
         );
@@ -120,6 +120,10 @@ export class MealDetailPage {
       () => console.log('termino diaryImageObs second')
      )
 
+  }
+
+  pathForImage(img) {
+    return this.camera.pathForImage(img);
   }
 
   sendReview() {

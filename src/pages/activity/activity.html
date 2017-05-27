@@ -23,7 +23,7 @@
 	 		<ion-item>
 		    <ion-thumbnail item-left>
 			    <div *ngIf="(diary | async)[item.date][item.key].localImages" >
-			    	<img [src]="(diary | async)[item.date][item.key].localImages[0]">
+			    	<img [src]="pathForImage((diary | async)[item.date][item.key].localImages[0])">
 			    </div>
 			    <div *ngIf="!(diary | async)[item.date][item.key].localImages" >
 			    	<img [src]="food">
@@ -44,7 +44,7 @@
 	 		<ion-item>
 		    <ion-thumbnail item-left>
 			    <div *ngIf="(diary | async)[item.date][item.key].localImages" >
-			    	<img [src]="(diary | async)[item.date][item.key].localImages[0]">
+			    	<img [src]="pathForImage((diary | async)[item.date][item.key].localImages[0])">
 			    </div>
 			    <div *ngIf="!(diary | async)[item.date][item.key].localImages" >
 			    	<img [src]="food">

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController, App } from 'ionic-angular';
 
-import { DiaryData, ActivityService } from '../../providers';
+import { DiaryData, ActivityService, CameraService } from '../../providers';
 import { MealDetailPage } from '../meal-detail/meal-detail';
 
 import { ObjectToArrayPipe } from '../../shared/pipes/object-to-array.pipe';
@@ -25,6 +25,7 @@ export class ActivityPage {
   	public viewCtrl: ViewController,
     public app: App,
   	public diaryData: DiaryData,
+    public camera: CameraService,
   	public activityService: ActivityService,
   	private objectToArray: ObjectToArrayPipe
 	){
@@ -64,6 +65,10 @@ export class ActivityPage {
   		console.log('hay estas sin ver', this.newActivity.length);
   		this.activityService.updateUnseenReview(this.newActivity.length)
   	})
+  }
+
+  pathForImage(img) {
+    return this.camera.pathForImage(img);
   }
 
 }

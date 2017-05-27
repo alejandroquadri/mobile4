@@ -37,41 +37,78 @@ export class DiaryEntryComponent {
   }
 
   addPicture() {
-    let key;
-    const day = this.day.format("YYYYMMDD");
     this.camera.takePicture('diary', 30);
     let diaryImageObs = this.camera.imageData.take(1);
-    let uploadObs = this.camera.uploadData.take(1);
 
     diaryImageObs.subscribe( (img: any) => {
       if (img !=='cancelled') {
-        this.text().then(text => {
-          let form = {
+        let form = {
             state: 'pending',
             order: this.mealInput.order, 
             meal: this.mealInput.meal,
-            localImages: [img.localImage],
+            localImages: [img],
             date: this.day.format("YYYYMMDD")
           }
-          if( text !== "") { form['text'] = text;}
-          this.diaryData.pushEntry(form, day)
-          .then( ret => {
-            key = ret.key;
-            this.camera.toBlob(img.file);
-          });
-        });
+        this.modalText({form: form, img: img})
       }
     });
-
-    uploadObs.subscribe( url => {
-      console.log('segunda');
-      this.diaryData.updateList({webImages:[url]}, key, day)
-      .then( () => {
-        this.activityService.updatePendingReviewCount()
-        .then ( () => console.log('updated pending'))
-      })
-    });
   }
+
+  pathForImage(img) {
+    return this.camera.pathForImage(img);
+  }
+
+  newText2() {
+    let form = {
+        state: 'pending',
+        order: this.mealInput.order, 
+        meal: this.mealInput.meal,
+        date: this.day.format("YYYYMMDD")
+      }
+    this.modalText({form: form})
+  }
+
+  modalText(form: any) {
+    let modal = this.modalCtrl.create(MealTextPage, form); 
+    modal.present()
+  }
+
+   // addPicture() {
+  //   let key;
+  //   const day = this.day.format("YYYYMMDD");
+  //   this.camera.takePicture('diary', 30);
+  //   let diaryImageObs = this.camera.imageData.take(1);
+  //   let uploadObs = this.camera.uploadData.take(1);
+
+  //   diaryImageObs.subscribe( (img: any) => {
+  //     if (img !=='cancelled') {
+  //       this.text().then(text => {
+  //         let form = {
+  //           state: 'pending',
+  //           order: this.mealInput.order, 
+  //           meal: this.mealInput.meal,
+  //           localImages: [img.localImage],
+  //           date: this.day.format("YYYYMMDD")
+  //         }
+  //         if( text !== "") { form['text'] = text;}
+  //         this.diaryData.pushEntry(form, day)
+  //         .then( ret => {
+  //           key = ret.key;
+  //           this.camera.toBlob(img.file);
+  //         });
+  //       });
+  //     }
+  //   });
+
+  //   uploadObs.subscribe( url => {
+  //     console.log('segunda');
+  //     this.diaryData.updateList({webImages:[url]}, key, day)
+  //     .then( () => {
+  //       this.activityService.updatePendingReviewCount()
+  //       .then ( () => console.log('updated pending'))
+  //     })
+  //   });
+  // }
 
   // newText() {
   //   this.modalText().then(
@@ -89,59 +126,26 @@ export class DiaryEntryComponent {
 
   // }
 
-  addPicture2() {
-    this.camera.takePicture('diary', 30);
-    let diaryImageObs = this.camera.imageData.take(1);
-
-    diaryImageObs.subscribe( (img: any) => {
-      if (img !=='cancelled') {
-        let form = {
-            state: 'pending',
-            order: this.mealInput.order, 
-            meal: this.mealInput.meal,
-            localImages: [img.localImage],
-            date: this.day.format("YYYYMMDD")
-          }
-        this.modalText({form: form, img: img.file})
-      }
-    });
-  }
-
-  newText2() {
-    let form = {
-        state: 'pending',
-        order: this.mealInput.order, 
-        meal: this.mealInput.meal,
-        date: this.day.format("YYYYMMDD")
-      }
-    this.modalText({form: form})
-  }
-
-  private text (){
-    return new Promise((resolve, reject) => {
-    let alert = this.alertCtrl.create({
-      message: "Que comiste?",
-      inputs: [{
-          name: "meal",
-          placeholder: "Que comiste?",
-      }],
-      buttons: [
-        { text: 'Cancelar'},
-        { text: 'Guardar',
-          handler: data => {
-            console.log(data);
-            resolve(data.meal) 
-          }
-        }
-      ]
-    });
-    alert.present();
-    });
-  }
-
-  modalText(form: any) {
-    let modal = this.modalCtrl.create(MealTextPage, form); 
-    modal.present()
-  }
+  // private text (){
+  //   return new Promise((resolve, reject) => {
+  //   let alert = this.alertCtrl.create({
+  //     message: "Que comiste?",
+  //     inputs: [{
+  //         name: "meal",
+  //         placeholder: "Que comiste?",
+  //     }],
+  //     buttons: [
+  //       { text: 'Cancelar'},
+  //       { text: 'Guardar',
+  //         handler: data => {
+  //           console.log(data);
+  //           resolve(data.meal) 
+  //         }
+  //       }
+  //     ]
+  //   });
+  //   alert.present();
+  //   });
+  // }
 
 }

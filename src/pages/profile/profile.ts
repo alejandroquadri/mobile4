@@ -86,10 +86,10 @@ export class ProfilePage {
 
     diaryImageObsFirst.subscribe(
       (imageData:any) => {
-        let form = {localPath: imageData.localImage}
+        let form = {localPath: imageData}
         this.profileData.updateProfileFan(form)
         .then( ret => {
-          this.camera.toBlob(imageData.file)
+          this.camera.toBlob(imageData)
         })
       },
       err => console.log('error en localImageObs second', err),
@@ -111,35 +111,8 @@ export class ProfilePage {
     )
   }
 
-    // updateAvatarViejo() {
-  //   this.camera.takePicture('profile');
-
-  //   let localImageObs = this.camera.imageData.take(1);
-  //   let webImageObs = this.camera.imageData.take(2).skip(1);
-
-  //   localImageObs.subscribe(
-  //     (imageData:any) => {
-  //       let form = {localPath: imageData}
-  //       this.profileData.updateProfileFan(form);
-  //     },
-  //     err => console.log('error en localImageObs second', err),
-  //     () => console.log('termino localImageObs second')
-  //   )
-
-  //   webImageObs.subscribe(
-  //     (imageData:any) => {
-  //       let form = {url: imageData}
-  //       this.profileData.updateProfileFan(form);
-  //       this.authData.setProfileData(this.profileForm.displayName || '', imageData)
-  //       .then(
-  //         (ret) => console.log('update exitoso', ret),
-  //         (err) => console.log('error', err)
-  //       )
-  //     },
-  //     err => console.log('error en webImageObs second', err),
-  //     () => console.log('termino webImageObs second')
-  //   )
-  // }
-
+  pathForImage(img) {
+    return this.camera.pathForImage(img);
+  }
 
 }

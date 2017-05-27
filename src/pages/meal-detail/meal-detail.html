@@ -20,7 +20,7 @@ ionScrollEnd="hideKeybaord()">
       </div>
       <ion-slides pager>
         <ion-slide *ngFor="let image of (meal | async).localImages | objectIterate">
-          <img [src]="image" class="slide-image"/>
+          <img [src]="pathForImage(image)" class="slide-image"/>
         </ion-slide>
       </ion-slides>
     </div>

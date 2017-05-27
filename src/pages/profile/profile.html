@@ -13,7 +13,7 @@
 <ion-content>
 
   <div padding tappable>
-    <img [src]="profileForm.localPath || avatar" (click)="updateAvatar()">
+    <img [src]="pathForImage(profileForm.localPath) || avatar" (click)="updateAvatar()">
   </div>
 
   <form (ngSubmit)="updateUser()" #form="ngForm" novalidate>
