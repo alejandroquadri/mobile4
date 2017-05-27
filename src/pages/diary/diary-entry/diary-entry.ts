@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { AlertController, ModalController } from 'ionic-angular';
+import { AlertController, ModalController, Platform } from 'ionic-angular';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/skip';
 import {AngularFire} from 'angularfire2';
@@ -28,6 +28,7 @@ export class DiaryEntryComponent {
     public alertCtrl: AlertController,
     public diaryData: DiaryData,
     public activityService: ActivityService,
+    public platform: Platform,
     public af: AngularFire,
     public modalCtrl: ModalController
   ) {}
@@ -58,7 +59,7 @@ export class DiaryEntryComponent {
     return this.camera.pathForImage(img);
   }
 
-  newText2() {
+  newText() {
     let form = {
         state: 'pending',
         order: this.mealInput.order, 

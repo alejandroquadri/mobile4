@@ -43,7 +43,8 @@ diary-entry {
   }
 
   .review { 
-    color: map-get($colors, primary);
+    // color: map-get($colors, primary);
+    color: black;
   }
 
   .okIcon {
