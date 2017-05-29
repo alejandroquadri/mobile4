@@ -18,9 +18,15 @@ ionScrollEnd="hideKeybaord()">
           <ion-icon name="add"></ion-icon>
         </button>
       </div>
-      <ion-slides pager>
+      <ion-slides pager *ngIf="platform.is('iphone')">
         <ion-slide *ngFor="let image of (meal | async).localImages | objectIterate">
           <img [src]="pathForImage(image)" class="slide-image"/>
+        </ion-slide>
+      </ion-slides>
+
+      <ion-slides pager *ngIf="!platform.is('iphone')">
+        <ion-slide *ngFor="let image of (meal | async).webImages | objectIterate">
+          <img [src]="image" class="slide-image"/>
         </ion-slide>
       </ion-slides>
     </div>

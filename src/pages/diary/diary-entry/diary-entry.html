@@ -15,7 +15,7 @@
         </ion-slide>          
       </ion-slides>
 
-      <ion-slides pager (click)="goToDetail(mealInput)" tappable *ngIf="!platform.is('iphone')">        
+      <ion-slides pager (click)="goToDetail(mealInput)" tappable *ngIf="!platform.is('iphone')">
         <ion-slide *ngFor="let image of mealInput.webImages">
           <img [src]="image" class="slide-image"/>
         </ion-slide>

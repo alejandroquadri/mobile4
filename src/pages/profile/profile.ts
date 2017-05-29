@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, Platform } from 'ionic-angular';
 import { AngularFire } from 'angularfire2';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/skip';
@@ -27,7 +27,8 @@ export class ProfilePage {
     public profileData: ProfileData,
     public camera: CameraService,
     public af: AngularFire,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    public platform: Platform,
   ) {
     this.profileForm = new Profile;
   }

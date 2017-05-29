@@ -13,7 +13,8 @@
 <ion-content>
 
   <div padding tappable>
-    <img [src]="pathForImage(profileForm.localPath) || avatar" (click)="updateAvatar()">
+    <img *ngIf="platform.is('iphone')" [src]="pathForImage(profileForm.localPath) || avatar" (click)="updateAvatar()">
+    <img *ngIf="!platform.is('iphone')" [src]="profileForm.url || avatar" (click)="updateAvatar()">
   </div>
 
   <form (ngSubmit)="updateUser()" #form="ngForm" novalidate>
