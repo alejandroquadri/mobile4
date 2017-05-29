@@ -75,8 +75,8 @@ ionScrollEnd="hideKeybaord()">
 
     <ion-list>
 		  <ion-item *ngFor="let review of (meal | async ).reviews | objectIterate: true">
-		    <p><strong>{{ review.name }}</strong> {{ review.message }}</p>
-        <p><small>{{ review.timestamp | momentFromNow}}</small></p>
+		    <p><strong>{{ review.name }}</strong> <small>{{ review.timestamp | momentFromNow}}</small></p>
+        <p>{{ review.message }}</p>
 		  </ion-item>
 		</ion-list>
 

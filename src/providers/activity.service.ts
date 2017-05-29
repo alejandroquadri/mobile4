@@ -3,7 +3,8 @@ import { AngularFire } from 'angularfire2';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import * as firebase from 'firebase';
 
-import { ProfileData } from './profile-data';
+import { ProfileData} from './profile-data';
+import { AuthData } from './auth-data';
 
 @Injectable()
 export class ActivityService {
@@ -14,12 +15,17 @@ export class ActivityService {
 
   constructor(
   	public af: AngularFire,
+    public authData: AuthData,
     public profileData: ProfileData
 	) {
-    this.getActivity().subscribe( activity => {
-      this.activitySubject.next(activity);
-      this.activity = activity;
-    });
+    this.authData.current().subscribe( user => {
+      if(user) {
+        this.getActivity(user.uid).subscribe( activity => {
+          this.activitySubject.next(activity);
+          this.activity = activity;
+        });
+      }
+    })
   }
 
   updatePendingReviewCount(): firebase.Promise<any> {
@@ -59,8 +65,8 @@ export class ActivityService {
     }); 
   }
 
-  getActivity() {
-    return this.af.database.object(`/activity/patients/${this.profileData.current.$key}`)
+  getActivity(user) {
+    return this.af.database.object(`/activity/patients/${user}`)
   }
 
   markAsSeenReview(key: string) {

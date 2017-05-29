@@ -17,14 +17,18 @@ export class DiaryData {
     public af: AngularFire,
     public authData: AuthData,
   ) {
-    this.getDiary().subscribe( diary => {
-      this.diarySubject.next(diary);
-      this.diary = diary;
-    });
+    this.authData.current().subscribe( user => {
+      if(user) {
+        this.getDiary(user.uid).subscribe( diary => {
+          this.diarySubject.next(diary);
+          this.diary = diary;
+        });
+      }
+    })
   }
 
-  getDiary(): FirebaseObjectObservable<any> {
-    return this.af.database.object(`/diary/${this.authData.fireAuth.uid}`);
+  getDiary(user): FirebaseObjectObservable<any> {
+    return this.af.database.object(`/diary/${user}`);
   }
 
   getDetail(date, key) {
