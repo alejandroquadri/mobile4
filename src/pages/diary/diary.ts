@@ -45,7 +45,6 @@ export class DiaryPage {
   }
 
   getData() {
-    // this.diaryData.getDiary()
     this.diaryData.diaryObs
     .subscribe(data => {
       this.completeDiary = data;
