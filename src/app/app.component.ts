@@ -8,10 +8,6 @@ import { AngularFire } from 'angularfire2';
 
 import { AuthData, ProfileData, PresenceService } from '../providers';
 
-// paginas
-import { TabsPage } from '../pages/tabs/tabs';
-import { LoginPage } from '../pages/login/login';
-
 @Component({
   template: `<ion-nav #myNav [root]="rootPage"></ion-nav>`
 })
@@ -39,7 +35,7 @@ export class MyApp {
           .subscribe( profile => {
             console.log('profile cargado');
             if (profile) {
-              this.rootPage = TabsPage;
+              this.rootPage = 'TabsPage';
               if (this.first) { 
                 statusBar.styleDefault();
                 splashScreen.hide();
@@ -48,7 +44,7 @@ export class MyApp {
             }
           })
         } else {
-          this.rootPage = LoginPage;
+          this.rootPage = 'LoginPage';
         }
       })
 

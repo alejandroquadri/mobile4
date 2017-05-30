@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, App } from 'ionic-angular';
 
 import { DiaryData, ActivityService, CameraService } from '../../providers';
-import { MealDetailPage } from '../meal-detail/meal-detail';
 
 import { ObjectToArrayPipe } from '../../shared/pipes/object-to-array.pipe';
 
-
+@IonicPage()
 @Component({
   selector: 'page-activity',
   templateUrl: 'activity.html',
@@ -47,7 +46,7 @@ export class ActivityPage {
   		let meal = mealData.val();
   		meal['date'] = date;
   		meal['$key'] = mealkey;
-	    this.navCtrl.push(MealDetailPage, meal);
+	    this.navCtrl.push('MealDetailPage', meal);
       // this.app.getRootNav().push(MealDetailPage, meal);
   	})
   	if(isNew) { this.activityService.markAsSeenReview(feedKey); }

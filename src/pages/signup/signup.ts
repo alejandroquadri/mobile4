@@ -1,4 +1,5 @@
 import {
+  IonicPage,
   NavController,
   LoadingController,
   AlertController } from 'ionic-angular';
@@ -8,6 +9,7 @@ import { AuthData } from '../../providers/auth-data';
 import { EmailValidator } from '../../shared/validators/email.validator';
 import { TabsPage } from '../tabs/tabs';
 
+@IonicPage()
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html',

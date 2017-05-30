@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
-import { NavController, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController, AlertController } from 'ionic-angular';
 
 // servicios
 import { AuthData } from '../../providers/auth-data';
 
 // paginas
-import { SignupPage } from '../signup/signup';
-import { ResetPasswordPage } from '../reset-password/reset-password';
+// import { SignupPage } from '../signup/signup';
+// import { ResetPasswordPage } from '../reset-password/reset-password';
 
 //validators
 import { EmailValidator } from '../../shared/validators/email.validator';
 
+@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
@@ -41,11 +42,11 @@ export class LoginPage {
   ionViewDidLoad() {}
 
   goToResetPassword(){
-    this.navCtrl.push(ResetPasswordPage);
+    this.navCtrl.push('ResetPasswordPage');
   }
 
   createAccount(){
-    this.navCtrl.push(SignupPage);
+    this.navCtrl.push('SignupPage');
   }
 
   elementChanged(input){

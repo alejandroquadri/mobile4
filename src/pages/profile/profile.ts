@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController, Platform } from 'ionic-angular';
 import { AngularFire } from 'angularfire2';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/skip';
@@ -12,6 +12,7 @@ import { AuthData } from '../../providers/auth-data';
 import { ProfileData } from '../../providers/profile-data';
 import { CameraService } from '../../providers/camera-service';
 
+@IonicPage()
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html'

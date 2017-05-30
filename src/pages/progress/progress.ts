@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, ModalController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import * as moment from 'moment';
 import Chart from 'chart.js';
@@ -7,9 +7,10 @@ import Chart from 'chart.js';
 import { ProfileData } from '../../providers/profile-data';
 import { WeightService } from '../../providers/weight-service';
 
-import { LogWeight } from '../log-weight/log-weight'
+// import { LogWeight } from '../log-weight/log-weight'
 
 
+@IonicPage()
 @Component({
   selector: 'page-progress',
   templateUrl: 'progress.html'
@@ -72,7 +73,7 @@ export class ProgressPage {
   }
 
   log() {
-    let log = this.modalCtrl.create(LogWeight);
+    let log = this.modalCtrl.create('LogWeight');
     log.onDidDismiss(data => {
       console.log(data);
       if (data) {

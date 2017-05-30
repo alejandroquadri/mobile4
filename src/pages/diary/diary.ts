@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, ModalController, App } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController, ModalController, App } from 'ionic-angular';
 import * as moment from 'moment';
-
-// pages
-import { MealDetailPage} from '../meal-detail/meal-detail';
-import { ActivityPage } from '../activity/activity';
 
 // servicios
 import { DiaryData, ActivityService } from '../../providers';
@@ -13,6 +9,7 @@ import { DiaryData, ActivityService } from '../../providers';
 import { SortAddPipe } from '../../shared/pipes/sort-add.pipe';
 import { ObjectToArrayPipe } from '../../shared/pipes/object-to-array.pipe';
 
+@IonicPage()
 @Component({
   selector: 'page-diary',
   templateUrl: 'diary.html',
@@ -42,6 +39,11 @@ export class DiaryPage {
   ionViewDidLoad() {
   }
 
+  ionViewDidEnter(){
+    let today = {date: moment()};
+    this.setDay(today);
+  }
+
   getData() {
     // this.diaryData.getDiary()
     this.diaryData.diaryObs
@@ -57,9 +59,7 @@ export class DiaryPage {
   }
 
   presentActivity() {
-    // let modal = this.modalCtrl.create(ActivityPage);
-    // modal.present()
-    this.app.getRootNav().push(ActivityPage);
+    this.app.getRootNav().push('ActivityPage');
   }
 
   setDay(day){
@@ -70,7 +70,7 @@ export class DiaryPage {
   detail(meal: any) {
     console.log(meal);
     meal['date'] = this.day.format("YYYYMMDD")
-    this.app.getRootNav().push(MealDetailPage, meal);
+    this.app.getRootNav().push('MealDetailPage', meal);
     // estoy llamando getRootNav devuelve NavController lo que me permite navegar desde ahi sin mostrar las tabs
   }
 

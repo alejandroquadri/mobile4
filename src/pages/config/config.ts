@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 // import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { NavController } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 // import 'rxjs/add/operator/take';
 
 import { CameraService } from '../../providers/camera-service';
 
-
+@IonicPage()
 @Component({
   selector: 'page-config',
   templateUrl: 'config.html'

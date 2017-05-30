@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 
 // paginas
-import { ProfilePage } from '../profile/profile';
-import { ProgressPage } from '../progress/progress';
-import { CoachPage } from '../coach/coach';
+// import { ProfilePage } from '../profile/profile';
+// import { ProgressPage } from '../progress/progress';
+// import { CoachPage } from '../coach/coach';
 
-// providers
-
+@IonicPage()
 @Component({
   selector: 'page-me',
   templateUrl: 'me.html'
@@ -26,15 +25,15 @@ export class MePage {
   }
 
   goToProfile(){
-    this.navCtrl.push(ProfilePage);
+    this.navCtrl.push('ProfilePage');
   }
 
   goToProgress(){
-    this.navCtrl.push(ProgressPage);
+    this.navCtrl.push('ProgressPage');
   }
 
   goToCoach(){
-    this.navCtrl.push(CoachPage);
+    this.navCtrl.push('CoachPage');
   }
 
 }

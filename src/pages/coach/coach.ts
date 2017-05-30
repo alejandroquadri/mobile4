@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 
 import { ProfileData } from '../../providers/profile-data'
 
+@IonicPage()
 @Component({
   selector: 'page-coach',
   templateUrl: 'coach.html'

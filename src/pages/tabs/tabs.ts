@@ -1,22 +1,24 @@
 import { Component } from '@angular/core';
+import { IonicPage } from 'ionic-angular';
 
-import { DiaryPage } from '../diary/diary';
-import { ChatPage } from '../chat/chat';
-import { MePage } from '../me/me';
-import { ConfigPage } from '../config/config';
+// import { DiaryPage } from '../diary/diary';
+// import { ChatPage } from '../chat/chat';
+// import { MePage } from '../me/me';
+// import { ConfigPage } from '../config/config';
 
 import { ActivityService } from '../../providers';
 
+@IonicPage()
 @Component({
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
   // this tells the tabs component which Pages
   // should be each tab's root Page
-  tab1Root: any = DiaryPage;
-  tab2Root: any = ChatPage;
-  tab3Root: any = MePage;
-  tab4Root: any = ConfigPage;
+  tab1Root: any = 'DiaryPage';
+  tab2Root: any = 'ChatPage';
+  tab3Root: any = 'MePage';
+  tab4Root: any = 'ConfigPage';
   unread = 0;
 
   constructor(

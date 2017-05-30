@@ -1,5 +1,5 @@
 import { Component, Renderer, ViewChild } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/skip';
 import {AngularFire} from 'angularfire2';
@@ -10,6 +10,7 @@ import { DiaryData } from '../../providers/diary-data';
 import { ActivityService } from '../../providers/activity.service'
 
 
+@IonicPage()
 @Component({
   selector: 'page-meal-text',
   templateUrl: 'meal-text.html',

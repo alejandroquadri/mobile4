@@ -1,6 +1,7 @@
 import { Component, Renderer } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { IonicPage, ViewController } from 'ionic-angular';
 
+@IonicPage()
 @Component({
   selector: 'page-log-weight',
   templateUrl: 'log-weight.html',

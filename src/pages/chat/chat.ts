@@ -1,18 +1,17 @@
 import { Component, ViewChild, Renderer } from '@angular/core';
-import { Content, NavController, Platform } from 'ionic-angular';
+import { IonicPage, Content, NavController, Platform } from 'ionic-angular';
 import { AngularFire,  } from 'angularfire2';
 import { Keyboard } from '@ionic-native/keyboard';
 import * as moment from 'moment';
 
 import { ProfileData, ChatService, ActivityService } from '../../providers';
 
+@IonicPage()
 @Component({
   selector: 'page-chat',
   templateUrl: 'chat.html'
 })
 export class ChatPage {
-
-  // public preventBlur: boolean = false;
 
   messages: any;
   profile: any;
@@ -73,7 +72,9 @@ export class ChatPage {
 
   ionViewDidLeave() {
     this.chatService.offCheckRead();
-    this.removeKeyboardListeners();
+    if (this.platform.is('ios')) {
+      this.removeKeyboardListeners();
+    }
     this.keyboard.disableScroll(false);
   }
 

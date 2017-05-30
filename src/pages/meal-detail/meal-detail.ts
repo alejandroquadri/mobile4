@@ -1,5 +1,5 @@
 import { Component, ViewChild, Renderer } from '@angular/core';
-import { NavController, NavParams, ModalController, Content, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, Content, Platform } from 'ionic-angular';
 import { Keyboard } from '@ionic-native/keyboard';
 
 import * as moment from 'moment';
@@ -9,9 +9,9 @@ import { ProfileData } from '../../providers/profile-data';
 import { CameraService } from '../../providers/camera-service';
 
 // paginas
-import { MealTextPage } from '../meal-text/meal-text';
+// import { MealTextPage } from '../meal-text/meal-text';
 
-
+@IonicPage()
 @Component({
   selector: 'page-meal-detail',
   templateUrl: 'meal-detail.html'
@@ -60,14 +60,16 @@ export class MealDetailPage {
 
   ionViewDidEnter(){
     if (this.platform.is('ios')) {
-      this.addKeyboardListeners()
+      this.addKeyboardListeners();
     }
     this.keyboard.disableScroll(true);
     this.updateScroll('enter', 500)
   }
 
   ionViewDidLeave() {
-    this.removeKeyboardListeners();
+    if (this.platform.is('ios')) {
+      this.removeKeyboardListeners();
+    }
     this.keyboard.disableScroll(false);
   }
 
@@ -150,7 +152,7 @@ export class MealDetailPage {
 
   modalText(form: any) {
     console.log(form);
-    let modal = this.modalCtrl.create(MealTextPage, form); 
+    let modal = this.modalCtrl.create('MealTextPage', form); 
     modal.present()
   }
 
