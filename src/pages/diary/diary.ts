@@ -16,8 +16,9 @@ import { ObjectToArrayPipe } from '../../shared/pipes/object-to-array.pipe';
 })
 export class DiaryPage {
 
-  day: any = moment()
-  completeDiary;
+  // day: any = moment();
+  day: any;
+  completeDiary = {};
   diary;
   commented: Array<string>
   activity: any
@@ -34,6 +35,7 @@ export class DiaryPage {
   ) {
     // this.getData();
     // this.getActivity();
+    this.day = moment();
   }
 
   ionViewDidLoad() {
@@ -76,8 +78,12 @@ export class DiaryPage {
   }
 
   private dateDiary() {
-    let dayDiary = this.completeDiary[this.day.format("YYYYMMDD")]
-    if (!dayDiary) { dayDiary = []}
+    let dayDiary;
+    if (this.completeDiary[this.day.format("YYYYMMDD")]) {
+      dayDiary = this.completeDiary[this.day.format("YYYYMMDD")];
+    } else {
+      dayDiary = []
+    }
     let primero  = this.objectToArray.transform(dayDiary);
     let segundo = this.sortAddPipe.transform(primero, 'order', true);
     return segundo;
