@@ -33,7 +33,7 @@ export class ResetPasswordPage {
    * Receives an input field and sets the corresponding fieldChanged property to 'true' to help with the styles.
    */
   elementChanged(input){
-    let field = input.inputControl.name;
+    let field = input.ngControl.name;
     this[field + "Changed"] = true;
   }
 

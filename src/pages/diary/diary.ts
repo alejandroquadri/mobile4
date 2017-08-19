@@ -32,11 +32,13 @@ export class DiaryPage {
     public modalCtrl: ModalController,
     public app: App
   ) {
-    this.getData();
-    this.getActivity();
+    // this.getData();
+    // this.getActivity();
   }
 
   ionViewDidLoad() {
+    this.getData();
+    this.getActivity();
   }
 
   ionViewDidEnter(){

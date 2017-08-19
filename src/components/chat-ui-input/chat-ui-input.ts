@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input, Output, EventEmitter, Renderer } from '@angular/core';
+import { Component, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { Keyboard } from '@ionic-native/keyboard';
 
 @Component({
@@ -18,7 +18,6 @@ export class ChatUIInput {
 
   constructor(
     public keyboard: Keyboard,
-    private renderer: Renderer
   ) {
     this.content = "";
     // this.lineHeight = 12;

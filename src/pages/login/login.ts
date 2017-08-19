@@ -39,7 +39,8 @@ export class LoginPage {
     });
   }
 
-  ionViewDidLoad() {}
+  ionViewDidLoad() {
+  }
 
   goToResetPassword(){
     this.navCtrl.push('ResetPasswordPage');
@@ -50,7 +51,7 @@ export class LoginPage {
   }
 
   elementChanged(input){
-    let field = input.inputControl.name;
+    let field = input.ngControl.name;
     this[field + "Changed"] = true;
   }
 
