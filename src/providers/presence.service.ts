@@ -1,6 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { AngularFire } from 'angularfire2';
 import * as firebase from 'firebase';
 
 @Injectable()
@@ -10,7 +9,6 @@ export class PresenceService {
   public connected = this.connectedSubject.asObservable();
 
   constructor(
-  	public af: AngularFire,
   	public zone: NgZone
   ) {
   	this.checkPresence();

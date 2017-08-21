@@ -4,7 +4,6 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 
 // firebase
-import { AngularFire } from 'angularfire2';
 import * as firebase from 'firebase';
 
 // plugins
@@ -30,7 +29,6 @@ export class CameraService {
 
   constructor(
     public asCtrl: ActionSheetController,
-    public af: AngularFire,
     public authData: AuthData,
     private file: File,
     private camera: Camera,

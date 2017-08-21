@@ -1,6 +1,5 @@
 import { Component, ViewChild, Renderer } from '@angular/core';
 import { IonicPage, Content, NavController, Platform } from 'ionic-angular';
-import { AngularFire,  } from 'angularfire2';
 import { Keyboard } from '@ionic-native/keyboard';
 import * as moment from 'moment';
 
@@ -40,7 +39,6 @@ export class ChatPage {
 
   constructor(
     public navCtrl: NavController,
-    public af: AngularFire,
     public profileData: ProfileData,
     public chatService: ChatService,
     public activityService: ActivityService,

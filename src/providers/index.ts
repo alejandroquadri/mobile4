@@ -6,3 +6,4 @@ export * from './diary-data';
 export * from './presence.service';
 export * from './profile-data';
 export * from './weight-service';
+export * from './firebaseApi-data';

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 import * as firebase from 'firebase';
 
+import { FirebaseApiDataProvider } from './firebaseApi-data';
 import { AuthData } from './auth-data';
 
 @Injectable()
@@ -11,13 +11,12 @@ export class ProfileData {
   current: any;
 
   constructor(
-    public af: AngularFire,
+    private api: FirebaseApiDataProvider,
     public authData: AuthData
   ) {
-    this.authData.current().subscribe( user => {
+    this.authData.user.subscribe( user => {
       if(user) {
-        this.af.database.object(`/userProfile/${user.uid}`)
-        .subscribe( prof => {
+        this.getProfile().subscribe( prof => {
           this.current = prof;
         })
       } else {
@@ -27,8 +26,7 @@ export class ProfileData {
   }
 
   updateProfile(form){
-    this.af.database.object(`/userProfile/${this.authData.fireAuth.uid}`)
-    .update(form)
+    return this.api.updateObject(`/userProfile/${this.authData.fireAuth.uid}`, form);
   }
 
   updateProfileFan(form): firebase.Promise<any> {
@@ -54,11 +52,11 @@ export class ProfileData {
   }
 
   getProfile(){
-    return this.af.database.object(`/userProfile/${this.authData.fireAuth.uid}`)
+    return this.api.getObject(`/userProfile/${this.authData.fireAuth.uid}`);
   }
 
-  coachProfile(coachuid): FirebaseObjectObservable<any> {
-    return this.af.database.object(`coachProfile/${coachuid}`);
+  coachProfile(coachuid) {
+    return this.api.getObject(`coachProfile/${coachuid}`);
   }
 
   getProfileOnce(): firebase.Promise<any> {

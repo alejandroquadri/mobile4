@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFire } from 'angularfire2';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import * as firebase from 'firebase';
 
 import { ProfileData} from './profile-data';
 import { AuthData } from './auth-data';
+import { FirebaseApiDataProvider } from './firebaseApi-data';
 
 @Injectable()
 export class ActivityService {
@@ -14,11 +14,11 @@ export class ActivityService {
   activity: any;
 
   constructor(
-  	public af: AngularFire,
+    private api: FirebaseApiDataProvider,
     public authData: AuthData,
     public profileData: ProfileData
 	) {
-    this.authData.current().subscribe( user => {
+    this.authData.user.subscribe( user => {
       if(user) {
         this.getActivity(user.uid).subscribe( activity => {
           this.activitySubject.next(activity);
@@ -66,7 +66,7 @@ export class ActivityService {
   }
 
   getActivity(user) {
-    return this.af.database.object(`/activity/patients/${user}`)
+    return this.api.getObject(`/activity/patients/${user}`)
   }
 
   markAsSeenReview(key: string) {

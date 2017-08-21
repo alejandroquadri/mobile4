@@ -2,7 +2,6 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { AlertController, ModalController, Platform } from 'ionic-angular';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/skip';
-import {AngularFire} from 'angularfire2';
 
 // servicios
 import { CameraService } from '../../../providers/camera-service';
@@ -26,7 +25,6 @@ export class DiaryEntryComponent {
     public diaryData: DiaryData,
     public activityService: ActivityService,
     public platform: Platform,
-    public af: AngularFire,
     public modalCtrl: ModalController
   ) {}
 

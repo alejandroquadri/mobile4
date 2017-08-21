@@ -16,7 +16,6 @@ import { ObjectToArrayPipe } from '../../shared/pipes/object-to-array.pipe';
 })
 export class DiaryPage {
 
-  // day: any = moment();
   day: any;
   completeDiary = {};
   diary;

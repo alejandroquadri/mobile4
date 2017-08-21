@@ -2,7 +2,6 @@ import { Component, Renderer, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/skip';
-import {AngularFire} from 'angularfire2';
 
 // servicios
 import { CameraService } from '../../providers/camera-service';
@@ -32,7 +31,6 @@ export class MealTextPage {
   	public camera: CameraService,
     public diaryData: DiaryData,
     public activityService: ActivityService,
-    public af: AngularFire,
   ) {
   	this.form = navParams.get('form');
   	this.img = navParams.get('img');
@@ -71,7 +69,7 @@ export class MealTextPage {
   push() {
   	if(this.text) { this.form['text'] = this.text }
   	this.diaryData.pushEntry(this.form, this.form.date)
-      .then( ret => {
+      .then( (ret: any) => {
       	this.activityService.updatePendingReviewCount();
       	if(this.img) {
       		console.log('sube imagen');

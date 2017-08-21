@@ -1,28 +1,32 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, AngularFireAuth } from 'angularfire2';
-import firebase from 'firebase';
+import { Observable } from 'rxjs/Observable';
+
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
+import * as firebase from 'firebase';
 
 @Injectable()
 export class AuthData {
 
   fireAuth: any;
-  authObs: any;
+  user: Observable<firebase.User>;
 
   constructor(
-    public af: AngularFire,
+    public afAuth: AngularFireAuth,
+    public afDb: AngularFireDatabase
   ) {
-    this.authObs = this.current()
-    .subscribe( user => {
-      if (user) { this.fireAuth = user.auth}
+    this.user = afAuth.authState;
+    this.user.subscribe( (user: any) => {
+      this.fireAuth = user;
     })
   }
 
-  current(): AngularFireAuth {
-    return this.af.auth
+  current() {
+    return this.afAuth.auth;
   }
 
   loginUser(newEmail: string, newPassword: string): firebase.Promise<any> {
-    return this.af.auth.login({ email: newEmail, password: newPassword });
+    return this.afAuth.auth.signInWithEmailAndPassword(newEmail, newPassword);
   }
 
   // para esto uso el JS SDK, no esta disponible todavia en AF2
@@ -31,13 +35,13 @@ export class AuthData {
   }
 
   logoutUser(): firebase.Promise<any> {
-    return this.af.auth.logout()
+    return this.afAuth.auth.signOut();
   }
 
   signupUser(newEmail: string, newPassword: string): any {
-    return this.af.auth.createUser({ email: newEmail, password: newPassword })
+    return this.afAuth.auth.createUserWithEmailAndPassword(newEmail, newPassword)
     .then(newUser => {
-      this.af.database.object(`/userProfile/${newUser.uid}`)
+      this.afDb.object(`/userProfile/${newUser.uid}`)
       .set({email:newEmail});
     })
   }

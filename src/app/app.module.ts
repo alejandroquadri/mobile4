@@ -5,7 +5,10 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 // importo AngularFire2 module
-import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+// import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 // plugins
 import { StatusBar } from '@ionic-native/status-bar';
@@ -22,7 +25,8 @@ import { AuthData,
         ChatService, 
         WeightService, 
         ActivityService, 
-        PresenceService } from '../providers';
+        PresenceService,
+        FirebaseApiDataProvider } from '../providers';
 
 // settings AF2
 export const firebaseConfig = {
@@ -34,10 +38,10 @@ export const firebaseConfig = {
 };
 
 // esto le dice a AF2 que voy a usar Email & Password para autenticacion
-const myFirebaseAuthConfig = {
-  provider: AuthProviders.Password,
-  method: AuthMethods.Password
-}
+// const myFirebaseAuthConfig = {
+//   provider: AuthProviders.Password,
+//   method: AuthMethods.Password
+// }
 
 @NgModule({
   declarations: [
@@ -54,7 +58,10 @@ const myFirebaseAuthConfig = {
           inputBlurring: false
         }
     }), // esto es para que junto tappable no tarde unos segundos en hacer click
-    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
+    // AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -75,6 +82,7 @@ const myFirebaseAuthConfig = {
     WeightService,
     ActivityService,
     PresenceService,
+    FirebaseApiDataProvider
   ]
 })
 export class AppModule {}

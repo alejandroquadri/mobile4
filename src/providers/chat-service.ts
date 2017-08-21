@@ -1,7 +1,7 @@
-import { Injectable, NgZone } from '@angular/core';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 
+import { FirebaseApiDataProvider } from './firebaseApi-data';
 import { ProfileData } from './profile-data';
 import { ActivityService } from './activity.service';
 
@@ -13,31 +13,29 @@ export class ChatService {
   added: any;
 
   constructor(
-  	public af: AngularFire,
-    public zone: NgZone,
+    private api: FirebaseApiDataProvider,
     public profileData: ProfileData,
     public activityService: ActivityService
 	){
     this.chat = firebase.database().ref(`/chats/${this.profileData.current.coach}&${this.profileData.current.$key}`);
   }
 
-  getChat(coachUid: string, patientUid: string): FirebaseListObservable<any[]> {
-  	return this.af.database.list(`/chats/${coachUid}&${patientUid}`)
+  getChat(coachUid: string, patientUid: string) {
+    return this.api.getList(`/chats/${coachUid}&${patientUid}`);
   }
 
-  pushMsg(coachUid: string, patientUid: string, msg:any): firebase.database.ThenableReference {
-  	return this.af.database.list(`/chats/${coachUid}&${patientUid}`)
-  	.push(msg);
+  pushMsg(coachUid: string, patientUid: string, msg:any){
+    return this.api.push(`/chats/${coachUid}&${patientUid}`, msg);
+  	// return this.af.database.list(`/chats/${coachUid}&${patientUid}`)
+  	// .push(msg);
   }
 
-  updateMsg(coachUid: string, patientUid: string, msg:any, newMsg:any): firebase.Promise<void>{
-  	return this.af.database.list(`/chats/${coachUid}&${patientUid}`)
-  	.update(msg, newMsg)
+  updateMsg(coachUid: string, patientUid: string, msg:any, newMsg:any){
+    return this.api.updateList(`/chats/${coachUid}&${patientUid}`, msg, newMsg);
   }
 
-  removeMsg(coachUid: string, patientUid: string, msg:any): firebase.Promise<void> {
-  	return this.af.database.list(`/chats/${coachUid}&${patientUid}`)
-  	.remove(msg)
+  removeMsg(coachUid: string, patientUid: string, msg:any) {
+    return this.api.removeItemList(`/chats/${coachUid}&${patientUid}`,msg);
   }
 
   mesRead () {

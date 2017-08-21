@@ -61,7 +61,7 @@ export class ProgressPage {
             if (data.log) {
             	this.weightService.push(data.log, moment().format())
             	.then( 
-            		ret => console.log('weight logged', ret.key),
+            		(ret: any) => console.log('weight logged', ret.key),
             		err => console.log('error', err)
           		);
             }
@@ -79,7 +79,7 @@ export class ProgressPage {
       if (data) {
         this.weightService.push(data.log, moment().format())
         .then( 
-          ret => console.log('weight logged', ret.key),
+          (ret: any) => console.log('weight logged', ret.key),
           err => console.log('error', err)
         );
       }
